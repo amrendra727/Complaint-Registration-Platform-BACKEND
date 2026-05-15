@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login | Women Safety</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+                <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap');
+        
+        :root {
+            --bg-color: #f1f5f9;
+            --shadow-dark: #d1d9e6;
+            --shadow-light: #ffffff;
+            --text-main: #334155;
+            --text-muted: #64748b;
+            --accent-red: #dc2626;
+            --accent-green: #059669;
+            --accent-blue: #2563eb;
+        }
+
+        body { 
+            font-family: 'Nunito', sans-serif; 
+            background-color: var(--bg-color); 
+            color: var(--text-main); 
+            overflow-x: hidden; 
+        }
+        
+        .neo-bg {
+            background-color: var(--bg-color);
+        }
+
+        .neo-card {
+            background: var(--bg-color);
+            box-shadow: 10px 10px 20px var(--shadow-dark), 
+                       -10px -10px 20px var(--shadow-light);
+            border-radius: 1.5rem;
+        }
+
+        .neo-pressed {
+            background: var(--bg-color);
+            box-shadow: inset 6px 6px 12px var(--shadow-dark), 
+                        inset -6px -6px 12px var(--shadow-light);
+            border-radius: 1rem;
+            border: none;
+            color: var(--text-main);
+            outline: none;
+        }
+        
+        .neo-pressed::placeholder {
+            color: var(--text-muted);
+        }
+
+        .neo-btn {
+            background: var(--bg-color);
+            box-shadow: 6px 6px 12px var(--shadow-dark), 
+                       -6px -6px 12px var(--shadow-light);
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+            border: none;
+            outline: none;
+            color: var(--text-main);
+        }
+        .neo-btn:active {
+            box-shadow: inset 4px 4px 8px var(--shadow-dark), 
+                        inset -4px -4px 8px var(--shadow-light);
+        }
+
+        .neo-btn-icon {
+            background: var(--bg-color);
+            box-shadow: 4px 4px 8px var(--shadow-dark), 
+                       -4px -4px 8px var(--shadow-light);
+            transition: all 0.2s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .neo-btn-icon:active {
+            box-shadow: inset 3px 3px 6px var(--shadow-dark), 
+                        inset -3px -3px 6px var(--shadow-light);
+        }
+
+        .neo-sos {
+            background: var(--bg-color);
+            box-shadow: 14px 14px 28px var(--shadow-dark), 
+                       -14px -14px 28px var(--shadow-light);
+            color: var(--accent-red);
+            font-weight: 800;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        .neo-sos:hover {
+            transform: scale(1.02);
+            box-shadow: 18px 18px 36px var(--shadow-dark), 
+                       -18px -18px 36px var(--shadow-light);
+        }
+        .neo-sos:active {
+            box-shadow: inset 10px 10px 20px var(--shadow-dark), 
+                        inset -10px -10px 20px var(--shadow-light);
+            transform: scale(0.98);
+        }
+
+        .neo-pulse {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.4);
+            animation: neo-pulse 2s infinite cubic-bezier(0.66, 0, 0, 1);
+            pointer-events: none;
+        }
+        @keyframes neo-pulse {
+            to { box-shadow: 0 0 0 45px rgba(220, 38, 38, 0); }
+        }
+
+        /* Map tint for sober mode */
+        .map-tint { filter: grayscale(0.5) contrast(1.1) brightness(1.05); }
+        
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-color); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+    </style>
+</head>
+
+<body class="h-screen flex items-center justify-center relative overflow-hidden">
+
+    <div class="z-10 w-full max-w-sm neo-card p-10 relative overflow-hidden m-4">
+
+        <div class="text-center mb-10 relative">
+            <div
+                class="inline-flex items-center justify-center w-20 h-20 rounded-full neo-btn-icon mb-6 pointer-events-none text-[var(--accent-red)]">
+                <i class="fa-solid fa-shield text-4xl"></i>
+            </div>
+            <h2 class="font-extrabold text-2xl tracking-widest uppercase">Restricted <span
+                    class="text-[var(--accent-red)]">Access</span></h2>
+            <p class="text-[10px] text-[var(--text-muted)] mt-2 uppercase tracking-widest font-bold">Command Center
+                Login</p>
+        </div>
+
+        <form action="dashboard.html" method="GET">
+            <div class="mb-6">
+                <label
+                    class="block text-[10px] text-[var(--text-muted)] uppercase tracking-widest mb-3 font-bold ml-2"><i
+                        class="fa-solid fa-id-badge mr-2 text-[var(--accent-red)]"></i> Officer ID</label>
+                <input type="text" class="neo-pressed w-full px-5 py-4 text-sm font-bold" placeholder="Enter ID"
+                    required autocomplete="off">
+            </div>
+
+            <div class="mb-10">
+                <label
+                    class="block text-[10px] text-[var(--text-muted)] uppercase tracking-widest mb-3 font-bold ml-2"><i
+                        class="fa-solid fa-key mr-2 text-[var(--accent-red)]"></i> Security Code</label>
+                <input type="password" class="neo-pressed w-full px-5 py-4 text-sm font-bold tracking-widest"
+                    placeholder="••••••••" required>
+            </div>
+
+            <button type="submit"
+                class="w-full neo-btn text-[var(--accent-red)] hover:text-[#b53f3c] font-extrabold py-5 px-6 rounded-2xl flex items-center justify-center gap-3 uppercase tracking-widest text-sm">
+                <i class="fa-solid fa-fingerprint text-lg"></i> Authorize
+            </button>
+        </form>
+
+        <div class="mt-10 text-center pt-6">
+            <a href="index.html"
+                class="text-xs text-[var(--text-muted)] hover:text-[var(--text-main)] transition font-bold uppercase tracking-widest flex items-center justify-center gap-2">
+                <i class="fa-solid fa-arrow-left"></i> Return to SOS
+            </a>
+        </div>
+    </div>
+</body>
+
+</html>
+
+

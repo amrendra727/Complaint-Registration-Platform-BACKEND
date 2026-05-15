@@ -1,0 +1,45 @@
+[
+  {
+    "id": 1778866009896,
+    "name": "Distressed User",
+    "phone": "Unknown",
+    "latitude": 26.811971865017178,
+    "longitude": 81.01128789536637,
+    "message": "",
+    "status": "ACTIVE",
+    "time": "2026-05-15T17:26:49.896Z"
+  },
+  {
+    "id": 1778865061497,
+    "name": "aarti",
+    "phone": "9898989898",
+    "latitude": 26.811971865017178,
+    "longitude": 81.01128789536637,
+    "message": "need urgent help",
+    "status": "RESOLVED",
+    "time": "2026-05-15T17:11:01.497Z",
+    "resolvedAt": "2026-05-15T17:21:45.988Z"
+  },
+  {
+    "id": 1778864824577,
+    "name": "a",
+    "phone": "aaa",
+    "latitude": 26.811971865017178,
+    "longitude": 81.01128789536637,
+    "message": "aaa",
+    "status": "RESOLVED",
+    "time": "2026-05-15T17:07:04.577Z",
+    "resolvedAt": "2026-05-15T17:10:35.829Z"
+  },
+  {
+    "id": 1778864789170,
+    "name": "System Test",
+    "phone": "Unknown",
+    "latitude": 28,
+    "longitude": 77,
+    "message": "Testing backend",
+    "status": "RESOLVED",
+    "time": "2026-05-15T17:06:29.170Z",
+    "resolvedAt": "2026-05-15T17:10:38.275Z"
+  }
+]

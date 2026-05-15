@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Police Command Center | Women Safety</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+                <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap');
+        
+        :root {
+            --bg-color: #f1f5f9;
+            --shadow-dark: #d1d9e6;
+            --shadow-light: #ffffff;
+            --text-main: #334155;
+            --text-muted: #64748b;
+            --accent-red: #dc2626;
+            --accent-green: #059669;
+            --accent-blue: #2563eb;
+        }
+
+        body { 
+            font-family: 'Nunito', sans-serif; 
+            background-color: var(--bg-color); 
+            color: var(--text-main); 
+            overflow-x: hidden; 
+        }
+        
+        .neo-bg {
+            background-color: var(--bg-color);
+        }
+
+        .neo-card {
+            background: var(--bg-color);
+            box-shadow: 10px 10px 20px var(--shadow-dark), 
+                       -10px -10px 20px var(--shadow-light);
+            border-radius: 1.5rem;
+        }
+
+        .neo-pressed {
+            background: var(--bg-color);
+            box-shadow: inset 6px 6px 12px var(--shadow-dark), 
+                        inset -6px -6px 12px var(--shadow-light);
+            border-radius: 1rem;
+            border: none;
+            color: var(--text-main);
+            outline: none;
+        }
+        
+        .neo-pressed::placeholder {
+            color: var(--text-muted);
+        }
+
+        .neo-btn {
+            background: var(--bg-color);
+            box-shadow: 6px 6px 12px var(--shadow-dark), 
+                       -6px -6px 12px var(--shadow-light);
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+            border: none;
+            outline: none;
+            color: var(--text-main);
+        }
+        .neo-btn:active {
+            box-shadow: inset 4px 4px 8px var(--shadow-dark), 
+                        inset -4px -4px 8px var(--shadow-light);
+        }
+
+        .neo-btn-icon {
+            background: var(--bg-color);
+            box-shadow: 4px 4px 8px var(--shadow-dark), 
+                       -4px -4px 8px var(--shadow-light);
+            transition: all 0.2s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .neo-btn-icon:active {
+            box-shadow: inset 3px 3px 6px var(--shadow-dark), 
+                        inset -3px -3px 6px var(--shadow-light);
+        }
+
+        .neo-sos {
+            background: var(--bg-color);
+            box-shadow: 14px 14px 28px var(--shadow-dark), 
+                       -14px -14px 28px var(--shadow-light);
+            color: var(--accent-red);
+            font-weight: 800;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        .neo-sos:hover {
+            transform: scale(1.02);
+            box-shadow: 18px 18px 36px var(--shadow-dark), 
+                       -18px -18px 36px var(--shadow-light);
+        }
+        .neo-sos:active {
+            box-shadow: inset 10px 10px 20px var(--shadow-dark), 
+                        inset -10px -10px 20px var(--shadow-light);
+            transform: scale(0.98);
+        }
+
+        .neo-pulse {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.4);
+            animation: neo-pulse 2s infinite cubic-bezier(0.66, 0, 0, 1);
+            pointer-events: none;
+        }
+        @keyframes neo-pulse {
+            to { box-shadow: 0 0 0 45px rgba(220, 38, 38, 0); }
+        }
+
+        /* Map tint for sober mode */
+        .map-tint { filter: grayscale(0.5) contrast(1.1) brightness(1.05); }
+        
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-color); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+    </style>
+</head>
+<body class="h-screen flex flex-col p-4 gap-4">
+
+    <!-- Header -->
+    <header class="neo-card p-5 flex justify-between items-center z-10">
+        <div class="flex items-center gap-5">
+            <div class="w-14 h-14 rounded-full neo-pressed flex items-center justify-center">
+                <i class="fa-solid fa-shield-halved text-[var(--accent-red)] text-2xl"></i>
+            </div>
+            <div>
+                <h1 class="font-extrabold text-2xl text-[var(--text-main)] tracking-wide">Command Center</h1>
+                <p class="text-[10px] text-[var(--accent-green)] font-bold tracking-widest uppercase mt-1"><i class="fa-solid fa-circle-dot animate-pulse mr-1"></i> Network Active</p>
+            </div>
+        </div>
+        <div class="flex items-center gap-6">
+            <div class="flex items-center gap-3 neo-pressed px-5 py-3">
+                <span class="relative flex h-3 w-3">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-3 w-3 bg-[var(--accent-red)]"></span>
+                </span>
+                <span class="text-[var(--accent-red)] font-extrabold text-sm tracking-wider" id="activeAlertsCount">0 ALERTS</span>
+            </div>
+            <a href="history.html" class="neo-btn px-6 py-3 rounded-full text-sm font-bold tracking-wider text-[var(--text-main)] hover:text-[var(--accent-blue)] flex items-center gap-2"><i class="fa-solid fa-clock-rotate-left"></i> History</a>
+            <a href="index.html" class="w-12 h-12 rounded-full neo-btn-icon text-[var(--text-main)] hover:text-[var(--accent-red)]"><i class="fa-solid fa-power-off"></i></a>
+        </div>
+    </header>
+
+    <main class="flex-1 flex overflow-hidden gap-4">
+        
+        <!-- Sidebar Alerts -->
+        <aside class="w-[420px] neo-card flex flex-col z-10 overflow-hidden">
+            <div class="p-6 flex justify-between items-center z-10 relative">
+                <h2 class="font-extrabold text-[var(--text-main)] tracking-wide text-sm uppercase"><i class="fa-solid fa-satellite-dish mr-2 text-[var(--accent-red)]"></i> Incoming Signals</h2>
+                <button class="neo-btn px-4 py-2 rounded-full text-xs font-bold text-[var(--text-muted)]"><i class="fa-solid fa-filter mr-1"></i> Filter</button>
+            </div>
+            
+            <div class="flex-1 overflow-y-auto p-6 space-y-6 pt-2" id="alertsList">
+                <div class="flex flex-col items-center justify-center h-full text-[var(--text-muted)]">
+                    <div class="w-20 h-20 rounded-full neo-pressed flex items-center justify-center mb-6">
+                        <i class="fa-solid fa-satellite animate-pulse text-3xl text-[var(--accent-green)]"></i>
+                    </div>
+                    <p class="text-xs font-bold uppercase tracking-widest text-[var(--accent-green)]">All Clear. Scanning...</p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Map Area -->
+        <section class="flex-1 neo-pressed relative overflow-hidden rounded-[1.5rem]">
+            <!-- Simulated Map -->
+            <iframe 
+                width="100%" 
+                height="100%" 
+                frameborder="0" 
+                style="border:0;" 
+                src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d14234.677953705256!2d80.9461!3d26.8467!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1" 
+                allowfullscreen 
+                class="map-tint rounded-[1.5rem]">
+            </iframe>
+            
+            <!-- Overlay Info -->
+            <div class="absolute top-6 right-6 neo-card p-5 rounded-2xl w-64 z-20">
+                <div class="flex items-center gap-3 mb-4 pb-4 border-b border-[#cbbdb1]/30">
+                    <div class="w-8 h-8 rounded-full neo-pressed flex items-center justify-center text-[var(--accent-red)]">
+                        <i class="fa-solid fa-crosshairs animate-spin-slow text-xs"></i>
+                    </div>
+                    <span class="text-[var(--text-main)] text-xs font-extrabold tracking-widest uppercase">Target Lock</span>
+                </div>
+                <div class="space-y-2 mb-4">
+                    <p class="text-xs font-bold text-[var(--text-muted)]">LAT: <span id="overlayLat" class="text-[var(--text-main)] ml-2 bg-[#e6dfd8] px-2 py-1 rounded neo-pressed">---</span></p>
+                    <p class="text-xs font-bold text-[var(--text-muted)]">LNG: <span id="overlayLng" class="text-[var(--text-main)] ml-2 bg-[#e6dfd8] px-2 py-1 rounded neo-pressed">---</span></p>
+                </div>
+                <div class="pt-3 border-t border-[#cbbdb1]/30 flex justify-between items-center">
+                    <span class="text-[10px] text-[var(--text-muted)] font-bold tracking-widest">STATUS</span>
+                    <span class="text-[10px] text-[var(--accent-green)] font-extrabold tracking-widest animate-pulse">MONITORING</span>
+                </div>
+            </div>
+            
+            <!-- Center Blinking Marker -->
+            <div id="mapMarker" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center pointer-events-none hidden z-30">
+                <span class="relative flex h-10 w-10">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--accent-red)] opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-10 w-10 bg-[var(--accent-red)] border-4 border-white shadow-[0_0_20px_rgba(217,83,79,0.8)] flex items-center justify-center">
+                      <i class="fa-solid fa-location-dot text-white text-sm"></i>
+                  </span>
+                </span>
+                <div class="mt-3 bg-white/90 px-3 py-1 rounded-full text-[10px] font-extrabold text-[var(--accent-red)] tracking-widest shadow-lg uppercase animate-pulse border border-[var(--accent-red)]">
+                    Target Location
+                </div>
+            </div>
+            
+        </section>
+
+    </main>
+
+    <script>
+        async function fetchAlerts() {
+            try {
+                const res = await fetch('http://localhost:3001/api/alerts');
+                const alerts = await res.json();
+                
+                const alertsList = document.getElementById('alertsList');
+                const countBadge = document.getElementById('activeAlertsCount');
+                
+                countBadge.textContent = `${alerts.length} ALERTS`;
+                
+                if (alerts.length > 0) {
+                    alertsList.innerHTML = alerts.map(alert => {
+                        const lat = alert.latitude || alert.lat;
+                        const lng = alert.longitude || alert.lng;
+                        const name = alert.name || alert.user_name;
+                        const time = alert.time || alert.created_at;
+                        return `
+                        <div class="neo-btn rounded-2xl p-5 cursor-pointer w-full text-left relative overflow-hidden" onclick="updateMap(${lat}, ${lng})">
+                            <div class="flex justify-between items-start mb-4">
+                                <h3 class="font-extrabold text-[var(--text-main)] text-lg"><i class="fa-solid fa-triangle-exclamation mr-2 text-[var(--accent-red)]"></i> ${name}</h3>
+                                <span class="text-[10px] text-[var(--accent-red)] font-extrabold tracking-widest neo-pressed px-3 py-1 rounded-full uppercase">SOS</span>
+                            </div>
+                            
+                            <div class="space-y-2 mb-6 ml-1">
+                                <p class="text-xs text-[var(--text-muted)] font-bold tracking-wide"><i class="fa-solid fa-clock mr-2"></i> ${new Date(time).toLocaleString()}</p>
+                                <p class="text-xs text-[var(--text-muted)] font-bold tracking-wide"><i class="fa-solid fa-phone mr-2"></i> ${alert.phone || 'N/A'}</p>
+                            </div>
+
+                            <div class="flex gap-4">
+                                <button onclick="event.stopPropagation(); dispatchPolice(this)" class="flex-1 neo-btn text-[var(--accent-blue)] text-xs py-3 rounded-xl font-extrabold tracking-widest uppercase hover:text-[var(--accent-green)]"><i class="fa-solid fa-car-police mr-2"></i> Dispatch</button>
+                                <button onclick="event.stopPropagation(); resolveAlert(${alert.id})" class="flex-1 neo-pressed text-[var(--text-main)] hover:text-[var(--accent-red)] text-xs py-3 rounded-xl font-extrabold tracking-widest uppercase transition"><i class="fa-solid fa-check-double mr-2"></i> Resolve</button>
+                            </div>
+                        </div>
+                    `}).join('');
+                    
+                    // Auto-focus map on the newest alert
+                    const firstAlert = alerts[0];
+                    const firstLat = firstAlert.latitude || firstAlert.lat;
+                    const firstLng = firstAlert.longitude || firstAlert.lng;
+                    if (firstLat && firstLng) {
+                        updateMap(firstLat, firstLng);
+                    }
+                } else {
+                    alertsList.innerHTML = `
+                        <div class="flex flex-col items-center justify-center h-full text-[var(--text-muted)]">
+                            <div class="w-20 h-20 rounded-full neo-pressed flex items-center justify-center mb-6">
+                                <i class="fa-solid fa-satellite animate-pulse text-3xl text-[var(--accent-green)]"></i>
+                            </div>
+                            <p class="text-xs font-bold uppercase tracking-widest text-[var(--accent-green)]">All Clear. Scanning...</p>
+                        </div>
+                    `;
+                    // Reset map
+                    document.getElementById('overlayLat').textContent = "---";
+                    document.getElementById('overlayLng').textContent = "---";
+                    document.getElementById('mapMarker').classList.add('hidden');
+                    currentMapLat = null;
+                    currentMapLng = null;
+                }
+            } catch (err) {
+                console.error("Failed to fetch alerts");
+            }
+        }
+
+        let currentMapLat = null;
+        let currentMapLng = null;
+
+        function updateMap(lat, lng) {
+            const numLat = parseFloat(lat);
+            const numLng = parseFloat(lng);
+            if(isNaN(numLat) || isNaN(numLng)) return;
+            
+            document.getElementById('overlayLat').textContent = numLat.toFixed(4);
+            document.getElementById('overlayLng').textContent = numLng.toFixed(4);
+            
+            // Show marker
+            document.getElementById('mapMarker').classList.remove('hidden');
+
+            // Prevent iframe flashing if coordinates are the same
+            if(numLat === currentMapLat && numLng === currentMapLng) return;
+            currentMapLat = numLat;
+            currentMapLng = numLng;
+            
+            // Update iframe src dynamically
+            const iframe = document.querySelector('iframe');
+            iframe.src = `https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d14234!2d${numLng}!3d${numLat}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1`;
+        }
+
+        async function resolveAlert(id) {
+            if(!confirm("Are you sure you want to mark this emergency as resolved?")) return;
+            try {
+                await fetch(`http://localhost:3001/api/alerts/${id}`, { method: 'DELETE' });
+                fetchAlerts(); // Refresh the list instantly
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        function dispatchPolice(btn) {
+            btn.innerHTML = `<i class="fa-solid fa-check mr-2"></i> Dispatched`;
+            btn.style.color = 'var(--accent-green)';
+            alert("🚓 Police unit has been dispatched to the exact coordinates!");
+        }
+
+        // Poll every 5 seconds
+        setInterval(fetchAlerts, 5000);
+        fetchAlerts();
+    </script>
+</body>
+</html>
+
+
+
