@@ -172,6 +172,7 @@
         
         <div class="px-8 pb-8 pt-2 flex justify-between items-center text-[10px] text-[var(--text-muted)] font-extrabold uppercase tracking-widest">
             <span>Total Records: <span id="totalRecords">0</span></span>
+            <span id="fetchStatus" class="text-[var(--accent-blue)]">Initializing...</span>
         </div>
     </div>
 
@@ -181,33 +182,42 @@
             window.location.href = 'login.html';
         }
 
-        // Initialize Supabase
-        const supabaseUrl = 'https://zhsgoytovsjpvtdbibbc.supabase.co';
-        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inpoc2dveXRvdnNqcHZ0ZGJpYmJjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc5NTY0MjIsImV4cCI6MjA5MzUzMjQyMn0.jNlo2UQ6aC0UIPc0HxayYjDxWz9WGCvDttTK-AP-LWs';
-        const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
-
         async function fetchHistory() {
+            const status = document.getElementById('fetchStatus');
+            const tbody = document.getElementById('historyTable');
+            status.textContent = "Connecting to Database...";
+            
             try {
-                const { data: alerts, error } = await supabaseClient
+                // Initialize Supabase locally to avoid global timing issues
+                const supabaseUrl = 'https://zhsgoytovsjpvtdbibbc.supabase.co';
+                const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inpoc2dveXRvdnNqcHZ0ZGJpYmJjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc5NTY0MjIsImV4cCI6MjA5MzUzMjQyMn0.jNlo2UQ6aC0UIPc0HxayYjDxWz9WGCvDttTK-AP-LWs';
+                
+                if (typeof supabase === 'undefined') {
+                    status.textContent = "Error: Supabase library not loaded.";
+                    return;
+                }
+
+                const client = supabase.createClient(supabaseUrl, supabaseKey);
+                
+                status.textContent = "Fetching records...";
+                const { data: alerts, error } = await client
                     .from('alerts')
-                    .select('*');
+                    .select('*')
+                    .order('created_at', { ascending: false });
 
                 if (error) {
-                    alert("Supabase Error: " + error.message + " (Code: " + error.code + ")");
-                    throw error;
-                }
-                
-                // Debug Alert
-                alert("Supabase Response: Found " + (alerts ? alerts.length : 0) + " records.");
-                
-                const tbody = document.getElementById('historyTable');
-                if (!alerts || alerts.length === 0) {
-                    tbody.innerHTML = '<tr><td colspan="6" class="p-6 text-center text-[var(--text-muted)]">No incident history found in database.</td></tr>';
-                    document.getElementById('totalRecords').textContent = "0";
+                    status.textContent = "Error: " + error.message;
+                    alert("Supabase Error: " + error.message);
                     return;
                 }
                 
-                document.getElementById('totalRecords').textContent = alerts.length;
+                status.textContent = "Sync Complete";
+                document.getElementById('totalRecords').textContent = alerts ? alerts.length : 0;
+                
+                if (!alerts || alerts.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="6" class="p-6 text-center text-[var(--text-muted)]">No records found. Check if RLS Select Policy is enabled.</td></tr>';
+                    return;
+                }
 
                 tbody.innerHTML = alerts.map(alert => {
                     const isResolved = alert.status === 'RESOLVED';
@@ -215,41 +225,41 @@
                     const dateObj = new Date(time);
                     
                     const statusHtml = isResolved 
-                        ? \`<span class="neo-btn inline-flex items-center gap-2 px-4 py-2 rounded-full text-[10px] font-extrabold tracking-widest text-[var(--accent-green)] pointer-events-none">
+                        ? `<span class="neo-btn inline-flex items-center gap-2 px-4 py-2 rounded-full text-[10px] font-extrabold tracking-widest text-[var(--accent-green)] pointer-events-none">
                                 <span class="w-2 h-2 rounded-full bg-[var(--accent-green)]"></span> RESOLVED
-                            </span>\`
-                        : \`<span class="neo-btn inline-flex items-center gap-2 px-4 py-2 rounded-full text-[10px] font-extrabold tracking-widest text-[var(--accent-red)] pointer-events-none">
+                            </span>`
+                        : `<span class="neo-btn inline-flex items-center gap-2 px-4 py-2 rounded-full text-[10px] font-extrabold tracking-widest text-[var(--accent-red)] pointer-events-none">
                                 <span class="w-2 h-2 rounded-full bg-[var(--accent-red)] animate-pulse"></span> ACTIVE
-                            </span>\`;
+                            </span>`;
 
-                    return \`
+                    return `
                         <tr class="hover:bg-[var(--shadow-light)]/20 transition-colors">
-                            <td class="p-6 text-[var(--text-muted)] font-mono">INC-\${alert.id.toString().slice(-4)}</td>
+                            <td class="p-6 text-[var(--text-muted)] font-mono">INC-${(alert.id || '').toString().slice(-4)}</td>
                             <td class="p-6 text-[var(--text-main)]">
                                 <div class="flex items-center gap-4">
-                                    <div class="w-10 h-10 rounded-full neo-btn-icon text-xs text-[var(--text-muted)] font-bold uppercase">\${(alert.name || 'U').substring(0, 2)}</div>
-                                    \${alert.name || 'Distressed User'}
+                                    <div class="w-10 h-10 rounded-full neo-btn-icon text-xs text-[var(--text-muted)] font-bold uppercase">${(alert.name || 'U').substring(0, 2)}</div>
+                                    ${alert.name || 'Distressed User'}
                                 </div>
                             </td>
                             <td class="p-6 text-xs text-[var(--text-main)] tracking-wide font-mono">
-                                <span class="text-[var(--text-muted)]">LAT:</span> \${parseFloat(alert.latitude || 0).toFixed(4)} <br>
-                                <span class="text-[var(--text-muted)]">LNG:</span> \${parseFloat(alert.longitude || 0).toFixed(4)}
+                                <span class="text-[var(--text-muted)]">LAT:</span> ${parseFloat(alert.latitude || 0).toFixed(4)} <br>
+                                <span class="text-[var(--text-muted)]">LNG:</span> ${parseFloat(alert.longitude || 0).toFixed(4)}
                             </td>
                             <td class="p-6 text-[var(--text-main)]">
-                                <p>\${dateObj.toLocaleDateString()}</p>
-                                <p class="text-[10px] text-[var(--text-muted)] tracking-widest mt-1">\${dateObj.toLocaleTimeString()}</p>
+                                <p>${dateObj.toLocaleDateString()}</p>
+                                <p class="text-[10px] text-[var(--text-muted)] tracking-widest mt-1">${dateObj.toLocaleTimeString()}</p>
                             </td>
-                            <td class="p-6">\${statusHtml}</td>
+                            <td class="p-6">${statusHtml}</td>
                             <td class="p-6 text-right">
-                                <button onclick="alert('Message: \${alert.message || 'No details provided'}')" class="w-10 h-10 rounded-full neo-btn-icon inline-flex text-[var(--accent-blue)]"><i class="fa-solid fa-file-lines"></i></button>
+                                <button onclick="alert('Message: ${alert.message || 'No details provided'}')" class="w-10 h-10 rounded-full neo-btn-icon inline-flex text-[var(--accent-blue)]"><i class="fa-solid fa-file-lines"></i></button>
                             </td>
                         </tr>
-                    \`;
+                    `;
                 }).join('');
 
             } catch (err) {
+                status.textContent = "Critical Error";
                 alert("Critical System Error: " + err.message);
-                console.error("Failed to fetch history:", err);
             }
         }
 
@@ -257,7 +267,6 @@
         fetchHistory();
     </script>
 </body>
-</html>
 
 
 
