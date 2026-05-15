@@ -236,9 +236,9 @@
 
                         if (error) throw error;
                         
-                        statusText.className = "text-[var(--accent-red)] font-bold uppercase tracking-widest text-xs mt-2";
+                        statusText.className = "text-[var(--accent-green)] font-bold uppercase tracking-widest text-xs mt-2";
                         statusText.textContent = "ALERT DISPATCHED TO COMMAND CENTER!";
-                        statusBox.querySelector('i').className = "fa-solid fa-check-circle text-[var(--accent-red)] text-3xl";
+                        statusBox.querySelector('i').className = "fa-solid fa-check-circle text-[var(--accent-green)] text-3xl";
                     } catch (error) {
                         console.error(error);
                         statusText.className = "text-[#e69b00] font-bold uppercase tracking-widest text-xs mt-2";
