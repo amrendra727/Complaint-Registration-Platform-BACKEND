@@ -202,7 +202,7 @@
 
                 tbody.innerHTML = alerts.map(alert => {
                     const isResolved = alert.status === 'RESOLVED';
-                    const time = alert.time || new Date().toISOString();
+                    const time = alert.created_at || new Date().toISOString();
                     const dateObj = new Date(time);
                     
                     const statusHtml = isResolved 
