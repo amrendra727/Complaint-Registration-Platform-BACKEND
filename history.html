@@ -190,13 +190,15 @@
             try {
                 const { data: alerts, error } = await supabaseClient
                     .from('alerts')
-                    .select('*')
-                    .order('created_at', { ascending: false });
+                    .select('*');
 
                 if (error) {
-                    alert("Supabase Error: " + error.message);
+                    alert("Supabase Error: " + error.message + " (Code: " + error.code + ")");
                     throw error;
                 }
+                
+                // Debug Alert
+                alert("Supabase Response: Found " + (alerts ? alerts.length : 0) + " records.");
                 
                 const tbody = document.getElementById('historyTable');
                 if (!alerts || alerts.length === 0) {
@@ -246,6 +248,7 @@
                 }).join('');
 
             } catch (err) {
+                alert("Critical System Error: " + err.message);
                 console.error("Failed to fetch history:", err);
             }
         }
