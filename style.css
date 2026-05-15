@@ -1,18 +1,14 @@
 :root {
-    --bg-dark: #0f172a;
-    --card-bg: rgba(30, 41, 59, 0.7);
-    --primary: #3b82f6;
-    --primary-hover: #2563eb;
-    --text-main: #f8fafc;
-    --text-muted: #94a3b8;
-    --input-bg: rgba(15, 23, 42, 0.6);
-    --input-border: rgba(255, 255, 255, 0.1);
-    --input-focus: rgba(59, 130, 246, 0.5);
-    
-    --success-bg: rgba(16, 185, 129, 0.2);
-    --success-text: #34d399;
-    --error-bg: rgba(239, 68, 68, 0.2);
-    --error-text: #f87171;
+    --bg-main: #e09d66; /* Match the clay room background loosely, though the user will use the app context */
+    --card-bg: #2C3654;
+    --text-main: #FFFFFF;
+    --text-muted: #FFD54F; /* Yellow text for subtitle/labels */
+    --input-bg: #181C25; /* Very dark pill background */
+    --btn-purple: #9A8BBA; 
+    --btn-purple-hover: #7E6CA3;
+    --btn-blue: #4A89D5;
+    --btn-blue-hover: #3A73B9;
+    --border-purple: #8B71AD;
 }
 
 * {
@@ -22,233 +18,233 @@
 }
 
 body {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Balsamiq Sans', cursive;
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--bg-dark);
+    background-color: var(--bg-main);
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
     color: var(--text-main);
     padding: 20px;
-    overflow-x: hidden;
-    position: relative;
-}
-
-/* Background animated shapes */
-.background-elements {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: -1;
-    overflow: hidden;
-}
-
-.shape {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(80px);
-    opacity: 0.5;
-    animation: float 10s infinite ease-in-out alternate;
-}
-
-.shape-1 {
-    width: 400px;
-    height: 400px;
-    background: #3b82f6;
-    top: -100px;
-    left: -100px;
-}
-
-.shape-2 {
-    width: 300px;
-    height: 300px;
-    background: #8b5cf6;
-    bottom: -50px;
-    right: -50px;
-    animation-delay: -5s;
-}
-
-.shape-3 {
-    width: 250px;
-    height: 250px;
-    background: #ec4899;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    animation-duration: 15s;
-}
-
-@keyframes float {
-    0% { transform: translate(0, 0) scale(1); }
-    100% { transform: translate(30px, 50px) scale(1.1); }
 }
 
 .container {
     width: 100%;
-    max-width: 540px;
+    max-width: 480px; /* Slightly narrower to match aspect ratio */
     z-index: 1;
 }
 
+/* Clay Card */
 .card {
-    background: var(--card-bg);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 24px;
-    padding: 40px;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    background-color: var(--card-bg);
+    border-radius: 40px;
+    padding: 30px 35px 35px;
+    position: relative;
+    
+    /* Outset shadow for standing out, Inset shadow for rounded edges */
+    box-shadow: 
+        10px 15px 30px rgba(0, 0, 0, 0.6),
+        inset -8px -8px 20px rgba(0, 0, 0, 0.7),
+        inset 8px 8px 20px rgba(255, 255, 255, 0.15);
+}
+
+.card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    border-radius: 40px;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.15'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+}
+
+.card > * {
+    position: relative;
+    z-index: 1;
 }
 
 .header {
     text-align: center;
-    margin-bottom: 32px;
+    margin-bottom: 25px;
 }
 
 .header h2 {
-    font-size: 1.8rem;
+    font-size: 2.4rem;
     font-weight: 700;
-    margin-bottom: 8px;
-    letter-spacing: -0.02em;
+    margin-bottom: 6px;
+    text-shadow: 3px 3px 5px rgba(0,0,0,0.6);
+    letter-spacing: 0.5px;
 }
 
 .header p {
     color: var(--text-muted);
     font-size: 0.95rem;
-    font-weight: 400;
+    font-weight: 700;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
 }
 
 .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 12px;
 }
 
 .mt-3 {
-    margin-top: 16px;
+    margin-top: 15px;
 }
 
 label {
     display: block;
-    margin-bottom: 8px;
-    font-weight: 500;
-    font-size: 0.9rem;
+    margin-bottom: 4px;
+    font-weight: 700;
+    font-size: 1rem;
     color: var(--text-muted);
+    padding-left: 12px;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
 }
 
-input, textarea {
+/* Clay Inputs (Holes) */
+input, textarea, .ai-question-box {
     width: 100%;
-    padding: 14px 16px;
-    border-radius: 12px;
-    border: 1px solid var(--input-border);
+    padding: 12px 18px;
+    border-radius: 20px;
+    border: none;
     background-color: var(--input-bg);
     font-family: inherit;
-    font-size: 1rem;
+    font-size: 1.05rem;
     color: var(--text-main);
+    font-weight: 700;
+    
+    /* Deep hole effect matching screenshot */
+    box-shadow: 
+        inset 6px 6px 12px rgba(0, 0, 0, 0.9),
+        inset -2px -2px 6px rgba(255, 255, 255, 0.05);
     transition: all 0.2s ease;
 }
 
+/* Specific fix for ai question box acting as a fake input */
+.ai-question-box {
+    display: flex;
+    align-items: center;
+    min-height: 48px;
+    margin-bottom: 12px;
+}
+
+.ai-question-box p {
+    margin: 0;
+    color: var(--text-main);
+}
+
 input::placeholder, textarea::placeholder {
-    color: #475569;
+    color: #4a5568;
 }
 
 input:focus, textarea:focus {
     outline: none;
-    border-color: var(--primary);
-    box-shadow: 0 0 0 4px var(--input-focus);
-    background-color: rgba(15, 23, 42, 0.8);
+    box-shadow: 
+        inset 8px 8px 15px rgba(0, 0, 0, 1),
+        inset -2px -2px 5px rgba(255, 255, 255, 0.1);
 }
 
 textarea {
-    resize: vertical;
-    min-height: 100px;
+    resize: none;
+    min-height: 70px; /* Reduced to match the pill shape */
+    border-radius: 20px;
 }
 
-/* Button Styles */
+/* Buttons */
 button {
     width: 100%;
-    padding: 14px;
+    padding: 12px;
     border: none;
-    border-radius: 12px;
-    font-size: 1rem;
-    font-weight: 600;
+    border-radius: 20px;
+    font-size: 1.15rem;
+    font-weight: 700;
     font-family: inherit;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.15s ease;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 8px;
+    color: white;
+    text-shadow: 1px 2px 3px rgba(0,0,0,0.5);
 }
 
 .submit-btn {
-    background-color: var(--primary);
-    color: white;
-    margin-top: 24px;
+    background-color: var(--btn-blue);
+    margin-top: 15px;
+    /* Protruding clay effect */
+    box-shadow: 
+        4px 6px 10px rgba(0, 0, 0, 0.5),
+        inset -4px -6px 10px rgba(0, 0, 0, 0.4),
+        inset 4px 6px 10px rgba(255, 255, 255, 0.3);
 }
 
 .submit-btn:hover:not(:disabled) {
-    background-color: var(--primary-hover);
-    transform: translateY(-2px);
-    box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.3);
+    background-color: var(--btn-blue-hover);
+    transform: scale(0.98);
 }
 
 .submit-btn:active:not(:disabled) {
-    transform: translateY(0);
+    transform: scale(0.96);
+    box-shadow: 
+        2px 3px 5px rgba(0, 0, 0, 0.5),
+        inset -2px -3px 5px rgba(0, 0, 0, 0.4),
+        inset 2px 3px 5px rgba(255, 255, 255, 0.3);
 }
 
 .submit-btn:disabled {
-    background-color: #334155;
-    color: #64748b;
+    background-color: #475569;
+    color: #94a3b8;
     cursor: not-allowed;
+    box-shadow: 
+        inset -3px -4px 8px rgba(0, 0, 0, 0.3),
+        inset 3px 4px 8px rgba(255, 255, 255, 0.1);
+    text-shadow: none;
 }
 
 .action-btn {
-    background-color: rgba(255, 255, 255, 0.05);
-    color: var(--text-main);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    margin-bottom: 16px;
+    background-color: var(--btn-purple);
+    margin-bottom: 12px;
+    /* Protruding clay effect */
+    box-shadow: 
+        3px 5px 8px rgba(0, 0, 0, 0.5),
+        inset -4px -5px 8px rgba(0, 0, 0, 0.3),
+        inset 4px 5px 8px rgba(255, 255, 255, 0.4);
 }
 
-.action-btn:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+.action-btn:hover:not(:disabled) {
+    background-color: var(--btn-purple-hover);
+    transform: scale(0.98);
 }
 
 .action-btn:disabled {
-    opacity: 0.5;
+    opacity: 0.8;
     cursor: not-allowed;
 }
 
 /* AI Section */
 .ai-section {
-    margin: 24px 0;
-    padding: 20px;
-    background: rgba(139, 92, 246, 0.05);
-    border: 1px dashed rgba(139, 92, 246, 0.3);
-    border-radius: 16px;
-}
-
-.ai-question-box {
-    background: rgba(15, 23, 42, 0.8);
-    padding: 16px;
-    border-radius: 12px;
-    border-left: 4px solid #8b5cf6;
-    margin-bottom: 16px;
+    margin: 12px 0 20px 0;
+    padding: 12px 18px 18px 18px;
+    background: #1F2437; /* Darker inside the border */
+    border-radius: 25px;
+    /* Thick purple inset border style */
+    box-shadow: 
+        inset 0 0 0 6px var(--border-purple),
+        inset 0 0 15px 6px rgba(0,0,0,0.8),
+        3px 4px 10px rgba(0,0,0,0.4);
 }
 
 .ai-badge {
     display: inline-block;
-    font-size: 0.75rem;
+    font-size: 0.8rem;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
     font-weight: 700;
-    color: #a78bfa;
-    margin-bottom: 8px;
-}
-
-#aiQuestionText {
-    font-size: 0.95rem;
-    line-height: 1.5;
-    color: #e2e8f0;
+    color: #A57BCA;
+    margin-bottom: 6px;
+    padding-left: 10px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.9);
 }
 
 .hidden {
@@ -257,26 +253,25 @@ button {
 
 /* Alerts */
 .alert {
-    padding: 14px 16px;
-    border-radius: 12px;
-    margin-bottom: 24px;
-    font-weight: 500;
-    font-size: 0.9rem;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    padding: 12px 15px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    font-weight: 700;
+    font-size: 1rem;
+    text-align: center;
+    box-shadow: 
+        inset -3px -3px 6px rgba(0, 0, 0, 0.3),
+        inset 3px 3px 6px rgba(255, 255, 255, 0.2);
 }
 
 .alert.success {
-    background-color: var(--success-bg);
-    color: var(--success-text);
-    border: 1px solid rgba(16, 185, 129, 0.3);
+    background-color: #34d399;
+    color: #064e3b;
 }
 
 .alert.error {
-    background-color: var(--error-bg);
-    color: var(--error-text);
-    border: 1px solid rgba(239, 68, 68, 0.3);
+    background-color: #f87171;
+    color: #450a0a;
 }
 
 .loading span {
@@ -287,10 +282,4 @@ button {
 @keyframes pulse {
     0%, 100% { opacity: 1; }
     50% { opacity: 0.5; }
-}
-
-@media (max-width: 600px) {
-    .card {
-        padding: 24px;
-    }
 }

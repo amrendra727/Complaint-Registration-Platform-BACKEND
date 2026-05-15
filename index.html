@@ -5,16 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Complaint Registration</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <div class="background-elements">
-        <div class="shape shape-1"></div>
-        <div class="shape shape-2"></div>
-        <div class="shape shape-3"></div>
-    </div>
+
 
     <div class="container">
         <div class="card">
@@ -50,23 +46,19 @@
 
                 <div class="ai-section" id="aiSection">
                     <button type="button" class="action-btn" id="generateQuestionBtn">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path
-                                d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
-                        </svg>
-                        <span>Generate Follow-up Question</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3 7 7 3-7 3-3 7-3-7-7-3 7-3z"/></svg>
+                        <span>Regenerate Question</span>
                     </button>
-
-                    <div id="aiQuestionContainer" class="hidden">
+                    
+                    <div id="aiQuestionContainer">
+                        <span class="ai-badge">AI ASSISTANT</span>
                         <div class="ai-question-box">
-                            <span class="ai-badge">AI Assistant</span>
-                            <p id="aiQuestionText">Loading...</p>
+                            <p id="aiQuestionText">"Would you like us to suspend service on it?"</p>
                         </div>
+                        
                         <div class="form-group mt-3">
                             <label for="aiAnswer">Your Answer</label>
-                            <input type="text" id="aiAnswer" name="aiAnswer" placeholder="Type your answer here..."
-                                required>
+                            <input type="text" id="aiAnswer" name="aiAnswer" placeholder="" required>
                         </div>
                     </div>
                 </div>
