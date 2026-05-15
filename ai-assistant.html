@@ -123,7 +123,7 @@
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
     </style>
 </head>
-<body class="h-screen flex flex-col max-w-md mx-auto relative neo-card my-4 overflow-hidden border-4 border-[var(--bg-color)]">
+<body class="h-[100dvh] flex flex-col max-w-md mx-auto relative neo-card md:my-4 overflow-hidden border-4 border-[var(--bg-color)]">
 
     <!-- Header -->
     <header class="p-6 flex justify-between items-center z-10 bg-[var(--bg-color)]">
@@ -158,7 +158,7 @@
     </main>
 
     <!-- Input Area -->
-    <footer class="p-6 z-10 bg-[var(--bg-color)] pb-8">
+    <footer class="p-6 z-10 bg-[var(--bg-color)] pb-6 md:pb-8">
         <form id="chatForm" class="flex gap-4 relative">
             <input type="text" id="chatInput" class="flex-1 neo-pressed rounded-full pl-6 pr-14 py-4 text-sm font-bold text-[var(--text-main)] placeholder-[var(--text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--shadow-light)]" placeholder="Type your situation..." required autocomplete="off">
             <button type="submit" class="absolute right-2 top-2 bottom-2 w-12 rounded-full neo-btn flex items-center justify-center text-[var(--accent-red)]">
@@ -184,16 +184,19 @@
             appendTypingIndicator(typingId);
 
             try {
-                const response = await fetch('http://localhost:3001/api/ai-analyze', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ message: msg })
-                });
+                // Mock AI response for GitHub Pages (Serverless)
+                await new Promise(resolve => setTimeout(resolve, 1500));
                 
-                const data = await response.json();
+                let reply = "I'm analyzing your situation. If you are in immediate danger, please use the SOS button on the home page or dial 112.";
                 
+                if (msg.toLowerCase().includes('help')) {
+                    reply = "Stay calm. If you are being followed, head towards a crowded area or a police station. Keep your phone in hand.";
+                } else if (msg.toLowerCase().includes('home') || msg.toLowerCase().includes('cab')) {
+                    reply = "Share your live location with a trusted contact immediately. You can do this from the 'Trusted Contacts' section on the main page.";
+                }
+
                 document.getElementById(`msg-${typingId}`).remove();
-                appendMessage(data.reply, 'ai');
+                appendMessage(reply, 'ai');
             } catch (error) {
                 document.getElementById(`msg-${typingId}`).remove();
                 appendMessage("CONNECTION LOST. If you are in danger, dial emergency services immediately.", 'ai');
