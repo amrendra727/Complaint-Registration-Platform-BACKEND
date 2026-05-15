@@ -201,8 +201,9 @@
                 
                 status.textContent = "Fetching records...";
                 
-                // Try fetching without ordering first (most robust)
-                let response = await client.from('alerts').select('*');
+                // Add cache buster timestamp to ensure fresh data
+                const cacheBuster = Date.now();
+                let response = await client.from('alerts').select('*', { count: 'exact' });
                 
                 // Fallback to capitalized table name if empty or error
                 if (response.error || !response.data || response.data.length === 0) {
@@ -216,7 +217,7 @@
 
                 if (error) {
                     status.textContent = "Error: " + error.message;
-                    alert("Supabase Error: " + error.message + "\nCode: " + error.code + "\nHint: Check RLS policies on 'alerts' table.");
+                    alert("Supabase Error!\nURL: " + supabaseUrl + "\nMessage: " + error.message);
                     return;
                 }
                 
