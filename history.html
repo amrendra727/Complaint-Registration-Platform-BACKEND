@@ -233,8 +233,11 @@
 
                 tbody.innerHTML = alerts.map(alert => {
                     const isResolved = alert.status === 'RESOLVED';
-                    const time = alert.created_at || new Date().toISOString();
+                    const time = alert.created_at || alert.time || new Date().toISOString();
                     const dateObj = new Date(time);
+                    
+                    // Safe ID display
+                    const displayId = alert.id ? alert.id.toString().slice(-4) : '####';
                     
                     const statusHtml = isResolved 
                         ? `<span class="neo-btn inline-flex items-center gap-2 px-4 py-2 rounded-full text-[10px] font-extrabold tracking-widest text-[var(--accent-green)] pointer-events-none">
@@ -246,7 +249,7 @@
 
                     return `
                         <tr class="hover:bg-[var(--shadow-light)]/20 transition-colors">
-                            <td class="p-6 text-[var(--text-muted)] font-mono">INC-${(alert.id || '').toString().slice(-4)}</td>
+                            <td class="p-6 text-[var(--text-muted)] font-mono">INC-${displayId}</td>
                             <td class="p-6 text-[var(--text-main)]">
                                 <div class="flex items-center gap-4">
                                     <div class="w-10 h-10 rounded-full neo-btn-icon text-xs text-[var(--text-muted)] font-bold uppercase">${(alert.name || 'U').substring(0, 2)}</div>
