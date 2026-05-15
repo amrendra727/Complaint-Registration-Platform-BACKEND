@@ -142,7 +142,7 @@
             <button onclick="fetchHistory()" class="neo-btn px-6 py-3 rounded-full text-sm font-bold tracking-wider text-[var(--accent-blue)] flex items-center gap-3">
                 <i class="fa-solid fa-sync-alt"></i> Refresh
             </button>
-            <button class="neo-btn px-6 py-3 rounded-full text-sm font-bold tracking-wider text-[var(--text-main)] flex items-center gap-3">
+            <button onclick="exportToCSV()" class="neo-btn px-6 py-3 rounded-full text-sm font-bold tracking-wider text-[var(--text-main)] flex items-center gap-3">
                 <i class="fa-solid fa-download"></i> Export CSV
             </button>
             <a href="dashboard.html" class="neo-btn px-6 py-3 rounded-full text-sm font-bold tracking-wider text-[var(--accent-red)] flex items-center gap-3">
@@ -177,6 +177,8 @@
     </div>
 
     <script>
+        let currentAlerts = [];
+
         // Security Check
         if (localStorage.getItem('isAdmin') !== 'true') {
             window.location.href = 'login.html';
@@ -222,7 +224,8 @@
                 }
                 
                 status.textContent = "Sync Complete";
-                document.getElementById('totalRecords').textContent = alerts ? alerts.length : 0;
+                currentAlerts = alerts || [];
+                document.getElementById('totalRecords').textContent = currentAlerts.length;
                 
                 if (!alerts || alerts.length === 0) {
                     tbody.innerHTML = '<tr><td colspan="6" class="p-6 text-center text-[var(--text-muted)]">No records found. <br><br> 1. Check if RLS SELECT policy is enabled. <br> 2. Ensure table name is exactly "alerts".</td></tr>';
@@ -277,6 +280,37 @@
                 status.textContent = "Critical Error";
                 alert("Critical System Error: " + err.message);
             }
+        }
+
+        function exportToCSV() {
+            if (currentAlerts.length === 0) {
+                alert("No data available to export.");
+                return;
+            }
+
+            const headers = ["ID", "Name", "Phone", "Latitude", "Longitude", "Message", "Status", "Timestamp"];
+            const rows = currentAlerts.map(a => [
+                a.id,
+                `"${a.name || 'Unknown'}"`,
+                a.phone || 'N/A',
+                a.latitude,
+                a.longitude,
+                `"${(a.message || 'EMPTY').replace(/"/g, '""')}"`,
+                a.status,
+                a.created_at
+            ]);
+
+            let csvContent = "data:text/csv;charset=utf-8," 
+                + headers.join(",") + "\n" 
+                + rows.map(e => e.join(",")).join("\n");
+
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", `SOS_History_${new Date().toLocaleDateString()}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
         }
 
         // Fetch on load
