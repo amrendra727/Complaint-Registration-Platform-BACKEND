@@ -83,13 +83,13 @@
 
         /* Mobile Adjustments */
         @media (max-width: 768px) {
-            body { padding: 1rem; gap: 1rem; overflow-y: auto; height: auto; }
+            body { padding: 1rem; gap: 1rem; overflow-y: auto !important; height: auto !important; display: block; }
             header { flex-direction: column; gap: 1rem; padding: 1.5rem; text-align: center; }
-            header .flex { flex-direction: column; width: 100%; }
-            main { flex-direction: column; height: auto; overflow: visible; }
-            aside { width: 100% !important; height: 500px; }
-            .map-container { height: 400px; }
+            main { flex-direction: column; height: auto; overflow: visible; display: flex; gap: 1.5rem; }
+            aside { width: 100% !important; height: 350px !important; flex: none; }
+            .map-container { height: 450px !important; flex: none; width: 100%; position: relative; display: block; }
             .md-panel { border-radius: 1.25rem; }
+            .map-container iframe { height: 100% !important; width: 100% !important; }
         }
 
         /* Scrollbar */
