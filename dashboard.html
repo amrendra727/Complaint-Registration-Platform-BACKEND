@@ -91,15 +91,39 @@
             .map-container { height: 450px !important; min-height: 450px !important; flex: none !important; width: 100% !important; position: relative; display: block !important; }
             .md-panel { border-radius: 1.25rem; }
             .map-overlay-info { 
-                top: 10px !important; 
-                right: 10px !important; 
-                width: auto !important; 
-                padding: 10px !important; 
-                border-radius: 1rem !important;
-                box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
+                top: 0 !important; 
+                right: 0 !important; 
+                left: 0 !important;
+                width: 100% !important; 
+                padding: 8px 15px !important; 
+                border-radius: 0 !important;
+                box-shadow: none !important;
+                background: rgba(255, 255, 255, 0.9) !important;
+                backdrop-filter: blur(4px);
+                border: none !important;
+                border-bottom: 1px solid rgba(0,0,0,0.1) !important;
+                z-index: 40 !important;
             }
-            .map-overlay-info .space-y-3 { display: flex !important; gap: 8px !important; space-y: 0 !important; margin-bottom: 0 !important; }
-            .map-overlay-info .bg-[var(--md-sys-color-surface-variant)] { padding: 4px 8px !important; margin-bottom: 0 !important; flex: 1; }
+            .map-overlay-info .space-y-3 { 
+                display: flex !important; 
+                flex-direction: row !important;
+                align-items: center !important;
+                justify-content: center !important;
+                gap: 20px !important; 
+                space-y: 0 !important; 
+                margin: 0 !important; 
+            }
+            .map-overlay-info .bg-[var(--md-sys-color-surface-variant)] { 
+                background: transparent !important;
+                padding: 0 !important; 
+                margin: 0 !important; 
+                flex: none !important;
+                display: flex !important;
+                gap: 5px !important;
+                align-items: center !important;
+            }
+            .map-overlay-info .text-[7px] { font-size: 9px !important; opacity: 0.6; }
+            .map-overlay-info .text-xs { font-size: 11px !important; margin: 0 !important; }
             .map-overlay-info .border-b { display: none !important; }
             .map-overlay-info .flex.justify-between { display: none !important; }
             .map-container iframe { height: 100% !important; width: 100% !important; min-height: 450px !important; display: block !important; }
@@ -171,12 +195,12 @@
                     <span class="text-[var(--md-sys-color-on-surface)] text-[10px] md:text-xs font-bold tracking-widest uppercase">Grid Lock</span>
                 </div>
                 <div class="space-y-3 md:space-y-4 mb-4 md:mb-6">
-                    <div class="bg-[var(--md-sys-color-surface-variant)] p-3 md:p-4 rounded-xl">
-                        <span class="text-[7px] md:text-[8px] font-bold text-[var(--md-sys-color-on-surface-variant)] uppercase">Latitude</span>
+                    <div class="bg-[var(--md-sys-color-surface-variant)] p-3 md:p-4 rounded-xl flex flex-col md:block">
+                        <span class="text-[7px] md:text-[8px] font-bold text-[var(--md-sys-color-on-surface-variant)] uppercase">Lat</span>
                         <span id="overlayLat" class="block text-xs md:text-sm font-bold text-[var(--md-sys-color-on-surface)] mt-1">---</span>
                     </div>
-                    <div class="bg-[var(--md-sys-color-surface-variant)] p-3 md:p-4 rounded-xl">
-                        <span class="text-[7px] md:text-[8px] font-bold text-[var(--md-sys-color-on-surface-variant)] uppercase">Longitude</span>
+                    <div class="bg-[var(--md-sys-color-surface-variant)] p-3 md:p-4 rounded-xl flex flex-col md:block">
+                        <span class="text-[7px] md:text-[8px] font-bold text-[var(--md-sys-color-on-surface-variant)] uppercase">Lng</span>
                         <span id="overlayLng" class="block text-xs md:text-sm font-bold text-[var(--md-sys-color-on-surface)] mt-1">---</span>
                     </div>
                 </div>
