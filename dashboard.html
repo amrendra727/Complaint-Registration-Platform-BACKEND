@@ -12,152 +12,147 @@
         @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap');
         
         :root {
-            --bg-color: #e2e8f0;
-            --clay-bg: #f8fafc;
-            --shadow-outer: #cbd5e1;
-            --shadow-inner: #ffffff;
-            --text-main: #1e293b;
-            --text-muted: #64748b;
-            --accent-red: #ff4d4d;
-            --accent-green: #22c55e;
-            --accent-blue: #3b82f6;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-main: #ffffff;
+            --text-muted: rgba(255, 255, 255, 0.5);
+            --accent-red: #ff3b3b;
+            --accent-green: #39ff14;
+            --accent-blue: #00d2ff;
+            --neon-red: 0 0 15px rgba(255, 59, 59, 0.5);
         }
 
         body { 
             font-family: 'Nunito', sans-serif; 
-            background-color: var(--bg-color); 
+            background: #020617;
             color: var(--text-main); 
             overflow: hidden; 
         }
         
-        .clay-card {
-            background: var(--clay-bg);
-            box-shadow: 20px 20px 40px var(--shadow-outer), 
-                       -20px -20px 40px var(--shadow-inner),
-                       inset 4px 4px 10px rgba(0,0,0,0.03),
-                       inset -4px -4px 10px rgba(255,255,255,0.7);
-            border-radius: 2.5rem;
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+            border-radius: 2rem;
         }
 
-        .clay-pressed {
-            background: var(--clay-bg);
-            box-shadow: inset 8px 8px 16px var(--shadow-outer), 
-                        inset -8px -8px 16px var(--shadow-inner);
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
             border-radius: 1.5rem;
-            border: none;
-            outline: none;
+            transition: all 0.3s ease;
+        }
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--glass-border);
+            transform: translateY(-5px);
         }
 
-        .clay-btn {
-            background: var(--clay-bg);
-            box-shadow: 10px 10px 20px var(--shadow-outer), 
-                       -10px -10px 20px var(--shadow-inner),
-                       inset 2px 2px 5px rgba(255,255,255,0.8);
-            border-radius: 1.25rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        .glass-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            border-radius: 1rem;
+            transition: all 0.3s ease;
         }
-        .clay-btn:active {
-            transform: scale(0.95);
-            box-shadow: inset 6px 6px 12px var(--shadow-outer), 
-                        inset -6px -6px 12px var(--shadow-inner);
+        .glass-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: var(--neon-red);
         }
 
-        .clay-icon-btn {
-            background: var(--clay-bg);
-            box-shadow: 8px 8px 16px var(--shadow-outer), 
-                       -8px -8px 16px var(--shadow-inner),
-                       inset 3px 3px 6px rgba(255,255,255,0.8);
-            border-radius: 50%;
+        .glow-text {
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
         }
 
-        /* Map tint for sober mode */
-        .map-tint { filter: grayscale(0.5) contrast(1.1) brightness(1.05); }
+        /* Map tint for high-tech mode */
+        .map-tint { filter: invert(90%) hue-rotate(180deg) brightness(1.2) contrast(1.2); }
         
         /* Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--bg-color); border-radius: 4px; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 10px; }
     </style>
 </head>
-<body class="h-screen flex flex-col p-4 gap-4">
+<body class="h-screen flex flex-col p-6 gap-6">
+    <div class="fixed inset-0 z-[-1] opacity-20 pointer-events-none">
+        <div class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-blue-600 rounded-full blur-[120px]"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-red-600 rounded-full blur-[120px]"></div>
+    </div>
 
     <!-- Header -->
     <!-- Header -->
-    <header class="clay-card p-6 flex justify-between items-center z-20 border-4 border-white/50">
-        <div class="flex items-center gap-6">
-            <div class="w-16 h-16 clay-icon-btn flex items-center justify-center">
+    <header class="glass-panel p-8 flex justify-between items-center z-20">
+        <div class="flex items-center gap-8">
+            <div class="w-16 h-16 glass-btn flex items-center justify-center shadow-[0_0_20px_rgba(255,59,59,0.3)]">
                 <i class="fa-solid fa-satellite-dish text-[var(--accent-red)] text-3xl animate-pulse"></i>
             </div>
             <div>
-                <h1 class="font-black text-3xl text-[var(--text-main)] tracking-tighter uppercase">CONTROL <span class="text-[var(--accent-red)]">GRID</span></h1>
-                <p class="text-[9px] text-[var(--accent-green)] font-black tracking-[0.4em] uppercase mt-1"><i class="fa-solid fa-circle animate-pulse mr-2"></i> Real-time Active</p>
+                <h1 class="font-black text-4xl text-white tracking-tighter uppercase glow-text">COMMAND <span class="text-[var(--accent-red)]">HUB</span></h1>
+                <p class="text-[10px] text-[var(--accent-green)] font-black tracking-[0.5em] uppercase mt-2 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-[var(--accent-green)] animate-ping"></span> Global Watch Active</p>
             </div>
         </div>
-        <div class="flex items-center gap-8">
-            <div class="flex items-center gap-4 clay-pressed px-8 py-4">
-                <span class="relative flex h-4 w-4">
-                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                  <span class="relative inline-flex rounded-full h-4 w-4 bg-[var(--accent-red)]"></span>
-                </span>
-                <span class="text-[var(--accent-red)] font-black text-lg tracking-tighter uppercase" id="activeAlertsCount">0 ALERTS</span>
+        <div class="flex items-center gap-10">
+            <div class="flex items-center gap-6 glass-panel px-10 py-5 border-white/5">
+                <span class="text-[var(--accent-red)] font-black text-2xl tracking-tighter uppercase glow-text" id="activeAlertsCount">0 SIGNALS</span>
             </div>
-            <a href="history.html" class="clay-btn px-8 py-4 text-xs font-black tracking-[0.2em] uppercase text-[var(--text-main)] hover:text-[var(--accent-blue)] flex items-center gap-3 transition-all"><i class="fa-solid fa-clock-rotate-left"></i> LOGS</a>
-            <a href="index.html" class="w-16 h-16 clay-icon-btn text-[var(--text-main)] hover:text-[var(--accent-red)] flex items-center justify-center transition-all"><i class="fa-solid fa-power-off text-xl"></i></a>
+            <a href="history.html" class="glass-btn px-10 py-5 text-[10px] font-black tracking-[0.3em] uppercase text-white hover:text-[var(--accent-blue)] flex items-center gap-4 transition-all"><i class="fa-solid fa-file-invoice-dollar"></i> ARCHIVES</a>
+            <a href="index.html" class="w-16 h-16 glass-btn text-white/40 hover:text-[var(--accent-red)] flex items-center justify-center transition-all"><i class="fa-solid fa-power-off text-2xl"></i></a>
         </div>
     </header>
 
     <main class="flex-1 flex overflow-hidden gap-4">
         
         <!-- Sidebar Alerts -->
-        <aside class="w-[450px] clay-card flex flex-col z-20 overflow-hidden border-4 border-white/50">
-            <div class="p-8 flex justify-between items-center border-b border-slate-300/30">
-                <h2 class="font-black text-[var(--text-main)] tracking-tighter text-sm uppercase">SATELLITE <span class="text-[var(--accent-red)]">FEEDS</span></h2>
-                <button class="clay-btn px-5 py-2 text-[8px] font-black uppercase tracking-widest text-[var(--text-muted)] hover:text-[var(--text-main)]">Filter Signals</button>
+        <aside class="w-[500px] glass-panel flex flex-col z-20 overflow-hidden">
+            <div class="p-10 flex justify-between items-center border-b border-white/5">
+                <h2 class="font-black text-white tracking-tighter text-base uppercase glow-text">DISTRESS <span class="text-[var(--accent-red)]">SIGNALS</span></h2>
+                <div class="w-2 h-2 rounded-full bg-[var(--accent-red)] animate-pulse shadow-[0_0_10px_rgba(255,59,59,1)]"></div>
             </div>
             
-            <div class="flex-1 overflow-y-auto p-8 space-y-8" id="alertsList">
-                <div class="flex flex-col items-center justify-center h-full text-[var(--text-muted)] space-y-6">
-                    <div class="w-24 h-24 clay-icon-btn flex items-center justify-center">
-                        <i class="fa-solid fa-tower-broadcast animate-pulse text-4xl text-[var(--accent-green)]"></i>
+            <div class="flex-1 overflow-y-auto p-10 space-y-10" id="alertsList">
+                <div class="flex flex-col items-center justify-center h-full text-white/20 space-y-8">
+                    <div class="w-28 h-28 glass-btn flex items-center justify-center border-white/5">
+                        <i class="fa-solid fa-tower-broadcast animate-pulse text-5xl"></i>
                     </div>
-                    <p class="text-[10px] font-black uppercase tracking-[0.4em] text-[var(--accent-green)]">Frequency Clear</p>
+                    <p class="text-[10px] font-black uppercase tracking-[0.6em]">Awaiting Uplink</p>
                 </div>
             </div>
         </aside>
 
         <!-- Main Map Area -->
-        <section class="flex-1 clay-pressed relative overflow-hidden p-4 border-4 border-white/50">
+        <section class="flex-1 glass-panel relative overflow-hidden p-6 border-white/5">
             <iframe 
                 width="100%" 
                 height="100%" 
                 frameborder="0" 
                 style="border:0;" 
-                src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d14234.677953705256!2d80.9461!3d26.8467!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1" 
+                src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d14234!2d80.9461!3d26.8467!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1" 
                 allowfullscreen 
-                class="map-tint rounded-[2.5rem]">
+                class="map-tint rounded-[2rem]">
             </iframe>
             
             <!-- Overlay Info -->
-            <div class="absolute top-10 right-10 clay-card p-8 w-72 z-30 border-4 border-white/50">
-                <div class="flex items-center gap-4 mb-6 pb-6 border-b border-slate-300/30">
-                    <div class="w-12 h-12 clay-icon-btn flex items-center justify-center text-[var(--accent-red)]">
-                        <i class="fa-solid fa-bullseye animate-spin-slow text-lg"></i>
+            <div class="absolute top-12 right-12 glass-panel p-10 w-80 z-30 border-white/10 shadow-2xl">
+                <div class="flex items-center gap-5 mb-8 pb-8 border-b border-white/5">
+                    <div class="w-14 h-14 glass-btn flex items-center justify-center text-[var(--accent-red)]">
+                        <i class="fa-solid fa-bullseye text-xl"></i>
                     </div>
-                    <span class="text-[var(--text-main)] text-xs font-black tracking-tighter uppercase">Lock-on Grid</span>
+                    <span class="text-white text-xs font-black tracking-widest uppercase">Grid Lock-on</span>
                 </div>
-                <div class="space-y-4 mb-8">
-                    <div class="clay-pressed p-4 flex flex-col gap-1">
-                        <span class="text-[8px] font-black text-[var(--text-muted)] uppercase tracking-widest">Latitude</span>
-                        <span id="overlayLat" class="text-sm font-black text-[var(--text-main)] tracking-widest">---</span>
+                <div class="space-y-6 mb-10">
+                    <div class="glass-btn p-5 border-white/5">
+                        <span class="text-[8px] font-black text-white/30 uppercase tracking-[0.3em]">Latitude Index</span>
+                        <span id="overlayLat" class="block text-base font-black text-white tracking-widest mt-2">---</span>
                     </div>
-                    <div class="clay-pressed p-4 flex flex-col gap-1">
-                        <span class="text-[8px] font-black text-[var(--text-muted)] uppercase tracking-widest">Longitude</span>
-                        <span id="overlayLng" class="text-sm font-black text-[var(--text-main)] tracking-widest">---</span>
+                    <div class="glass-btn p-5 border-white/5">
+                        <span class="text-[8px] font-black text-white/30 uppercase tracking-[0.3em]">Longitude Index</span>
+                        <span id="overlayLng" class="block text-base font-black text-white tracking-widest mt-2">---</span>
                     </div>
                 </div>
-                <div class="flex justify-between items-center">
-                    <span class="text-[8px] text-[var(--text-muted)] font-black uppercase tracking-widest">Feed</span>
-                    <span class="text-[9px] text-[var(--accent-green)] font-black tracking-[0.2em] animate-pulse uppercase">Live Track</span>
+                <div class="flex justify-between items-center text-[9px] font-black tracking-[0.4em] uppercase">
+                    <span class="text-white/20">Secure Link</span>
+                    <span class="text-[var(--accent-green)] animate-pulse">Established</span>
                 </div>
             </div>
             
@@ -211,20 +206,25 @@
                         const name = alert.name;
                         const time = alert.created_at;
                         return `
-                        <div class="clay-btn p-6 cursor-pointer w-full text-left relative overflow-hidden group hover:scale-[1.02] transition-transform" onclick="updateMap(${lat}, ${lng})">
-                            <div class="flex justify-between items-start mb-6">
-                                <h3 class="font-black text-[var(--text-main)] text-xl tracking-tighter uppercase"><i class="fa-solid fa-triangle-exclamation mr-3 text-[var(--accent-red)] group-hover:animate-bounce"></i> ${name}</h3>
-                                <span class="text-[8px] text-white bg-[var(--accent-red)] font-black tracking-widest px-4 py-1.5 rounded-full uppercase shadow-lg">SOS ACTIVE</span>
+                        <div class="glass-card p-8 cursor-pointer w-full text-left relative overflow-hidden group border-white/5" onclick="updateMap(${lat}, ${lng})">
+                            <div class="flex justify-between items-start mb-8">
+                                <div>
+                                    <h3 class="font-black text-white text-2xl tracking-tighter uppercase glow-text">${name}</h3>
+                                    <p class="text-[8px] text-white/30 font-black uppercase tracking-[0.5em] mt-2">Distress Beacon Active</p>
+                                </div>
+                                <span class="w-12 h-12 glass-btn flex items-center justify-center text-[var(--accent-red)] shadow-[0_0_15px_rgba(255,59,59,0.3)]">
+                                    <i class="fa-solid fa-triangle-exclamation animate-bounce"></i>
+                                </span>
                             </div>
                             
-                            <div class="clay-pressed p-4 space-y-3 mb-8">
-                                <p class="text-[10px] text-[var(--text-muted)] font-black tracking-widest uppercase"><i class="fa-solid fa-clock-four mr-3 text-[var(--accent-blue)]"></i> ${new Date(time).toLocaleString()}</p>
-                                <p class="text-[10px] text-[var(--text-muted)] font-black tracking-widest uppercase"><i class="fa-solid fa-phone-office mr-3 text-[var(--accent-green)]"></i> ${alert.phone || 'N/A'}</p>
+                            <div class="glass-btn p-5 space-y-4 mb-10 border-white/5">
+                                <p class="text-[9px] text-white/60 font-black tracking-[0.2em] uppercase"><i class="fa-solid fa-clock-four mr-3 text-[var(--accent-blue)]"></i> ${new Date(time).toLocaleString()}</p>
+                                <p class="text-[9px] text-white/60 font-black tracking-[0.2em] uppercase"><i class="fa-solid fa-phone-office mr-3 text-[var(--accent-green)]"></i> ${alert.phone || 'N/A'}</p>
                             </div>
-
+                            
                             <div class="flex gap-6">
-                                <button onclick="event.stopPropagation(); dispatchPolice(this)" class="flex-1 clay-btn text-[var(--accent-blue)] text-[9px] py-4 font-black uppercase tracking-widest hover:text-[var(--accent-green)]"><i class="fa-solid fa-car-on mr-2 text-sm"></i> Dispatch</button>
-                                <button onclick="event.stopPropagation(); resolveAlert(${alert.id})" class="flex-1 clay-pressed text-[var(--text-main)] hover:text-[var(--accent-red)] text-[9px] py-4 font-black uppercase tracking-widest transition-all"><i class="fa-solid fa-check-double mr-2 text-sm"></i> Resolve</button>
+                                <button onclick="event.stopPropagation(); dispatchPolice(this)" class="flex-1 glass-btn text-[var(--accent-blue)] text-[9px] py-5 font-black uppercase tracking-[0.3em] hover:shadow-[0_0_20px_rgba(0,210,255,0.3)]"><i class="fa-solid fa-jet-fighter-up mr-3"></i> Dispatch</button>
+                                <button onclick="event.stopPropagation(); resolveAlert(${alert.id})" class="flex-1 glass-btn text-white/40 hover:text-[var(--accent-green)] text-[9px] py-5 font-black uppercase tracking-[0.3em] transition-all"><i class="fa-solid fa-check-double mr-3"></i> Secure</button>
                             </div>
                         </div>
                     `;}).join('');

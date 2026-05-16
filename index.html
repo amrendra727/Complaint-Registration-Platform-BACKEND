@@ -12,122 +12,133 @@
         @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap');
         
         :root {
-            --bg-color: #e2e8f0;
-            --clay-bg: #f8fafc;
-            --shadow-outer: #cbd5e1;
-            --shadow-inner: #ffffff;
-            --text-main: #1e293b;
-            --text-muted: #64748b;
-            --accent-red: #ff4d4d;
-            --accent-green: #22c55e;
-            --accent-blue: #3b82f6;
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --text-main: #ffffff;
+            --text-muted: rgba(255, 255, 255, 0.6);
+            --accent-red: #ff3b3b;
+            --accent-blue: #00d2ff;
+            --accent-green: #39ff14;
+            --neon-glow: 0 0 20px rgba(255, 59, 59, 0.8), 0 0 40px rgba(255, 59, 59, 0.4);
         }
 
         body { 
             font-family: 'Nunito', sans-serif; 
-            background-color: var(--bg-color); 
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
             color: var(--text-main); 
             overflow-x: hidden; 
+            min-height: 100vh;
         }
         
-        .clay-card {
-            background: var(--clay-bg);
-            box-shadow: 20px 20px 40px var(--shadow-outer), 
-                       -20px -20px 40px var(--shadow-inner),
-                       inset 4px 4px 10px rgba(0,0,0,0.03),
-                       inset -4px -4px 10px rgba(255,255,255,0.7);
-            border-radius: 2.5rem;
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            border-radius: 2rem;
+            transform-style: preserve-3d;
+            perspective: 1000px;
         }
 
-        .clay-pressed {
-            background: var(--clay-bg);
-            box-shadow: inset 8px 8px 16px var(--shadow-outer), 
-                        inset -8px -8px 16px var(--shadow-inner);
-            border-radius: 1.5rem;
-            border: none;
-            outline: none;
-        }
-
-        .clay-btn {
-            background: var(--clay-bg);
-            box-shadow: 10px 10px 20px var(--shadow-outer), 
-                       -10px -10px 20px var(--shadow-inner),
-                       inset 2px 2px 5px rgba(255,255,255,0.8);
+        .glass-btn {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(5px);
+            border: 1px solid var(--glass-border);
             border-radius: 1.25rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s ease;
         }
-        .clay-btn:active {
-            transform: scale(0.95);
-            box-shadow: inset 6px 6px 12px var(--shadow-outer), 
-                        inset -6px -6px 12px var(--shadow-inner);
-        }
-
-        .clay-sos {
-            background: var(--accent-red);
-            box-shadow: 15px 15px 35px rgba(255, 77, 77, 0.4), 
-                       -15px -15px 35px var(--shadow-inner),
-                       inset 8px 8px 20px rgba(0,0,0,0.15),
-                       inset -8px -8px 20px rgba(255,255,255,0.25);
-            color: #fff;
-            border-radius: 50%;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        .clay-sos:hover {
-            transform: scale(1.05);
-            box-shadow: 20px 20px 45px rgba(255, 77, 77, 0.5), 
-                       -20px -20px 45px var(--shadow-inner);
-        }
-        .clay-sos:active {
-            transform: scale(0.92);
-            box-shadow: inset 15px 15px 30px rgba(0,0,0,0.2), 
-                        inset -15px -15px 30px rgba(255,255,255,0.1);
+        .glass-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
         }
 
-        .clay-icon-btn {
-            background: var(--clay-bg);
-            box-shadow: 8px 8px 16px var(--shadow-outer), 
-                       -8px -8px 16px var(--shadow-inner),
-                       inset 3px 3px 6px rgba(255,255,255,0.8);
+        .glass-input {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--glass-border);
+            color: white;
             border-radius: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        .glass-input:focus {
+            background: rgba(0, 0, 0, 0.3);
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 15px rgba(0, 210, 255, 0.3);
         }
 
-        .neo-pulse {
-            position: absolute;
-            width: 100%;
-            height: 100%;
+        .sos-orb {
+            width: 240px;
+            height: 240px;
+            background: radial-gradient(circle at 30% 30%, #ff5f6d, #ff3b3b);
             border-radius: 50%;
-            box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.4);
-            animation: neo-pulse 2s infinite cubic-bezier(0.66, 0, 0, 1);
-            pointer-events: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: 900;
+            color: white;
+            cursor: pointer;
+            position: relative;
+            box-shadow: 
+                0 10px 30px rgba(0,0,0,0.5),
+                inset 10px 10px 20px rgba(255,255,255,0.4),
+                inset -10px -10px 20px rgba(0,0,0,0.3),
+                var(--neon-glow);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: orb-pulse 2s infinite alternate;
         }
-        @keyframes neo-pulse {
-            to { box-shadow: 0 0 0 45px rgba(220, 38, 38, 0); }
+        
+        @keyframes orb-pulse {
+            from { transform: scale(1); box-shadow: 0 10px 30px rgba(0,0,0,0.5), var(--neon-glow); }
+            to { transform: scale(1.05); box-shadow: 0 10px 40px rgba(0,0,0,0.6), 0 0 30px rgba(255, 59, 59, 1), 0 0 60px rgba(255, 59, 59, 0.6); }
+        }
+
+        .sos-orb:active {
+            transform: scale(0.9);
+            box-shadow: inset 10px 10px 30px rgba(0,0,0,0.6);
+        }
+
+        .glow-text {
+            text-shadow: 0 0 10px rgba(255,255,255,0.5);
         }
 
         .bg-blob {
             position: absolute;
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, rgba(59, 130, 246, 0.2) 0%, rgba(255, 255, 255, 0) 70%);
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, var(--accent-blue) 0%, transparent 70%);
             border-radius: 50%;
             z-index: -1;
-            filter: blur(50px);
-            animation: blob-float 20s infinite alternate linear;
+            filter: blur(80px);
+            opacity: 0.2;
+            animation: blob-float 15s infinite alternate ease-in-out;
+        }
+        .bg-blob-red {
+            background: radial-gradient(circle, var(--accent-red) 0%, transparent 70%);
+            animation-delay: -5s;
         }
 
         @keyframes blob-float {
-            from { transform: translate(0, 0) rotate(0deg); }
-            to { transform: translate(100px, 100px) rotate(360deg); }
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(100px, 200px) scale(1.2); }
         }
 
         .floating {
-            animation: floating 3s ease-in-out infinite;
+            animation: floating 4s ease-in-out infinite;
+        }
+        @keyframes floating {
+            0%, 100% { transform: translateY(0) rotateX(0); }
+            50% { transform: translateY(-15px) rotateX(5deg); }
         }
 
-        @keyframes floating {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
+        /* 3D hover effect */
+        .card-3d {
+            transition: transform 0.3s ease;
+        }
+        .card-3d:hover {
+            transform: translateY(-10px) rotateY(2deg) rotateX(2deg);
         }
 
         /* Map tint for sober mode */
@@ -139,88 +150,89 @@
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
     </style>
 </head>
-<body class="min-h-screen flex flex-col items-center pb-20 bg-gradient-to-br from-[#e2e8f0] to-[#cbd5e1] overflow-x-hidden relative">
-    <div class="bg-blob top-[-10%] left-[-10%]"></div>
-    <div class="bg-blob bottom-[-10%] right-[-10%] bg-red-200/20"></div>
+<body class="min-h-screen flex flex-col items-center pb-20 overflow-x-hidden relative">
+    <div class="bg-blob top-[10%] left-[-5%]"></div>
+    <div class="bg-blob bg-blob-red bottom-[10%] right-[-5%]"></div>
 
     <!-- Navigation -->
-    <nav class="w-full p-6 flex justify-between items-center z-20 sticky top-0 bg-[var(--bg-color)]/80 backdrop-blur-md">
+    <nav class="w-full p-6 flex justify-between items-center z-50 sticky top-0 backdrop-blur-xl border-b border-white/10">
         <div class="flex items-center gap-4">
-            <div class="w-14 h-14 clay-icon-btn flex items-center justify-center text-[var(--accent-red)]">
+            <div class="w-14 h-14 glass-btn flex items-center justify-center text-[var(--accent-red)] shadow-[0_0_15px_rgba(255,59,59,0.3)]">
                 <i class="fa-solid fa-shield-heart text-2xl"></i>
             </div>
-            <span class="font-extrabold text-2xl tracking-tighter text-[var(--text-main)]">KAVACH</span>
+            <span class="font-black text-2xl tracking-tighter text-white glow-text">KAVACH</span>
         </div>
         <div class="flex gap-6">
-            <a href="ai-assistant.html" class="w-14 h-14 clay-btn flex items-center justify-center text-[var(--accent-blue)]">
+            <a href="ai-assistant.html" class="w-14 h-14 glass-btn flex items-center justify-center text-[var(--accent-blue)] hover:shadow-[0_0_20px_rgba(0,210,255,0.4)]">
                 <i class="fa-solid fa-robot text-xl"></i>
             </a>
-            <a href="login.html" class="w-14 h-14 clay-btn flex items-center justify-center text-[var(--accent-red)]">
+            <a href="login.html" class="w-14 h-14 glass-btn flex items-center justify-center text-[var(--accent-red)] hover:shadow-[0_0_20px_rgba(255,59,59,0.4)]">
                 <i class="fa-solid fa-user-shield text-xl"></i>
             </a>
         </div>
     </nav>
 
-    <main class="w-full max-w-md px-6 flex flex-col items-center flex-1 z-10 mt-6">
+    <main class="w-full max-w-md px-6 flex flex-col items-center flex-1 z-10 mt-10">
         
-        <div class="text-center mb-12 floating">
-            <h1 class="text-5xl font-black mb-3 text-[var(--text-main)] uppercase tracking-tighter">Emergency <span class="text-[var(--accent-red)]">SOS</span></h1>
-            <p class="text-[var(--text-muted)] text-[10px] font-black uppercase tracking-[0.5em] opacity-60">Shield Activated & Ready</p>
+        <div class="text-center mb-16 floating">
+            <h1 class="text-6xl font-black mb-3 text-white uppercase tracking-tighter glow-text">Emergency <span class="text-[var(--accent-red)]">SOS</span></h1>
+            <p class="text-white/60 text-[10px] font-black uppercase tracking-[0.5em]">Shield Activated • Secured Feed</p>
         </div>
 
         <!-- User Details Form -->
-        <div class="w-full clay-card p-8 mb-16 border-4 border-white/50">
-            <div class="flex items-center gap-3 mb-6 text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest">
-                <i class="fa-solid fa-id-card text-[var(--accent-red)] text-sm"></i> Identification Profile
+        <div class="w-full glass-card card-3d p-8 mb-16">
+            <div class="flex items-center gap-3 mb-8 text-[10px] font-black text-white/70 uppercase tracking-widest">
+                <i class="fa-solid fa-id-card text-[var(--accent-red)] text-sm shadow-sm"></i> Identity Verification
             </div>
             <div class="space-y-6">
-                <input type="text" id="sosName" placeholder="Full Name" class="clay-pressed w-full px-6 py-5 text-sm font-bold placeholder-slate-400">
-                <input type="text" id="sosPhone" placeholder="Contact Number" class="clay-pressed w-full px-6 py-5 text-sm font-bold placeholder-slate-400">
-                <textarea id="sosMessage" placeholder="What is the emergency?" class="clay-pressed w-full px-6 py-5 text-sm font-bold h-28 resize-none placeholder-slate-400"></textarea>
+                <input type="text" id="sosName" placeholder="ENTER FULL NAME" class="glass-input w-full px-6 py-5 text-sm font-bold tracking-widest uppercase placeholder-white/20">
+                <input type="text" id="sosPhone" placeholder="VERIFIED CONTACT" class="glass-input w-full px-6 py-5 text-sm font-bold tracking-widest uppercase placeholder-white/20">
+                <textarea id="sosMessage" placeholder="DESCRIBE EMERGENCY..." class="glass-input w-full px-6 py-5 text-sm font-bold h-28 resize-none tracking-widest uppercase placeholder-white/20"></textarea>
             </div>
         </div>
 
-        <!-- Giant SOS Button -->
-        <div class="relative flex items-center justify-center mb-20">
-            <div class="neo-pulse"></div>
-            <button id="sosBtn" class="clay-sos w-60 h-60 flex flex-col items-center justify-center z-10 font-black text-6xl tracking-tighter group">
-                <i class="fa-solid fa-hand-pointer mb-3 text-4xl group-hover:scale-110 transition-transform"></i>
-                SOS
+        <!-- Giant SOS Orb Button -->
+        <div class="relative flex items-center justify-center mb-24">
+            <div class="absolute w-[300px] h-[300px] bg-[var(--accent-red)]/10 rounded-full blur-[40px] animate-pulse"></div>
+            <button id="sosBtn" class="sos-orb group">
+                <i class="fa-solid fa-fingerprint mb-4 text-5xl opacity-80 group-hover:scale-110 transition-transform"></i>
+                <span class="tracking-tighter">SOS</span>
+                <div class="absolute -bottom-12 text-[10px] font-black tracking-[0.5em] text-white/40 uppercase">Hold to Activate</div>
             </button>
         </div>
 
         <!-- Status Box -->
-        <div id="statusBox" class="w-full clay-card p-8 text-center hidden mb-12 border-4 border-white/50 animate-bounce">
-            <i class="fa-solid fa-satellite text-[var(--accent-blue)] animate-spin mb-4 text-3xl"></i>
-            <p id="statusText" class="text-[var(--text-main)] font-black text-xs uppercase tracking-[0.2em]">Acquiring Signal...</p>
+        <div id="statusBox" class="w-full glass-card p-10 text-center hidden mb-16 animate-bounce">
+            <i class="fa-solid fa-satellite-dish text-[var(--accent-blue)] animate-pulse mb-6 text-4xl shadow-[0_0_20px_rgba(0,210,255,0.5)]"></i>
+            <p id="statusText" class="text-white font-black text-sm uppercase tracking-[0.3em]">Linking with Hub...</p>
         </div>
 
         <!-- Quick Actions -->
-        <div class="grid grid-cols-2 gap-8 w-full mb-16">
-            <a href="tel:112" class="clay-btn p-8 flex flex-col items-center gap-4 text-[var(--text-main)] hover:text-[var(--accent-red)]">
-                <div class="w-14 h-14 clay-icon-btn flex items-center justify-center text-[var(--accent-red)]">
-                    <i class="fa-solid fa-phone-flip text-xl"></i>
+        <div class="grid grid-cols-2 gap-10 w-full mb-20">
+            <a href="tel:112" class="glass-btn p-8 flex flex-col items-center gap-5 text-white hover:border-[var(--accent-red)] group">
+                <div class="w-16 h-16 glass-btn flex items-center justify-center text-[var(--accent-red)] group-hover:shadow-[0_0_20px_rgba(255,59,59,0.5)] transition-all">
+                    <i class="fa-solid fa-phone-flip text-2xl"></i>
                 </div>
-                <span class="text-[10px] font-black uppercase tracking-widest">Call 112</span>
+                <span class="text-[10px] font-black uppercase tracking-[0.3em]">Fast 112</span>
             </a>
-            <button onclick="shareLocation()" class="clay-btn p-8 flex flex-col items-center gap-4 text-[var(--text-main)] hover:text-[var(--accent-blue)]">
-                <div class="w-14 h-14 clay-icon-btn flex items-center justify-center text-[var(--accent-blue)]">
-                    <i class="fa-solid fa-share-nodes text-xl"></i>
+            <button onclick="shareLocation()" class="glass-btn p-8 flex flex-col items-center gap-5 text-white hover:border-[var(--accent-blue)] group">
+                <div class="w-16 h-16 glass-btn flex items-center justify-center text-[var(--accent-blue)] group-hover:shadow-[0_0_20px_rgba(0,210,255,0.5)] transition-all">
+                    <i class="fa-solid fa-location-crosshairs text-2xl"></i>
                 </div>
-                <span class="text-[10px] font-black uppercase tracking-widest">Share Live</span>
+                <span class="text-[10px] font-black uppercase tracking-[0.3em]">Live Feed</span>
             </button>
         </div>
 
         <!-- Trusted Contacts -->
-        <div class="w-full clay-card p-8 border-4 border-white/50">
-            <div class="flex justify-between items-center mb-8">
+        <div class="w-full glass-card card-3d p-10">
+            <div class="flex justify-between items-center mb-10">
                 <div>
-                    <h2 class="font-black text-[var(--text-main)] uppercase text-sm tracking-tighter">Guardians</h2>
-                    <p class="text-[8px] text-[var(--text-muted)] font-black uppercase tracking-widest mt-1">Primary Responders</p>
+                    <h2 class="font-black text-white uppercase text-lg tracking-tighter glow-text">The Vanguard</h2>
+                    <p class="text-[9px] text-white/40 font-black uppercase tracking-[0.3em] mt-1">Direct Emergency Links</p>
                 </div>
-                <button onclick="addContact()" class="clay-icon-btn w-12 h-12 text-[var(--accent-red)] hover:scale-110 transition-transform"><i class="fa-solid fa-plus text-sm"></i></button>
+                <button onclick="addContact()" class="w-12 h-12 glass-btn text-[var(--accent-green)] hover:shadow-[0_0_15px_rgba(57,255,20,0.4)] transition-all"><i class="fa-solid fa-plus"></i></button>
             </div>
-            <div class="space-y-6" id="contactsList">
+            <div class="space-y-8" id="contactsList">
                 <!-- Dynamically populated via JS -->
             </div>
         </div>
@@ -307,19 +319,19 @@
         function renderContacts() {
             const list = document.getElementById('contactsList');
             list.innerHTML = contacts.map((c, index) => `
-                <div class="flex justify-between items-center clay-pressed p-6">
-                    <div class="flex items-center gap-5">
-                        <div class="w-12 h-12 clay-icon-btn flex items-center justify-center text-[var(--text-muted)] pointer-events-none">
-                            <i class="fa-solid fa-user-check text-sm"></i>
+                <div class="flex justify-between items-center glass-btn p-6 border-white/5">
+                    <div class="flex items-center gap-6">
+                        <div class="w-14 h-14 glass-btn flex items-center justify-center text-white/30">
+                            <i class="fa-solid fa-user-shield text-xl"></i>
                         </div>
                         <div>
-                            <p class="font-black text-sm text-[var(--text-main)] uppercase tracking-tighter">${c.name}</p>
-                            <p class="text-[9px] text-[var(--text-muted)] font-black tracking-widest mt-1">${c.phone}</p>
+                            <p class="font-black text-sm text-white uppercase tracking-tighter">${c.name}</p>
+                            <p class="text-[9px] text-white/40 font-black tracking-[0.2em] mt-1 uppercase">${c.phone}</p>
                         </div>
                     </div>
                     <div class="flex gap-4">
-                        <a href="tel:${c.phone}" class="w-12 h-12 flex items-center justify-center clay-btn text-[var(--accent-green)]"><i class="fa-solid fa-phone-flip text-sm"></i></a>
-                        <button onclick="removeContact(${index})" class="w-12 h-12 flex items-center justify-center clay-btn text-[var(--accent-red)]"><i class="fa-solid fa-trash-can text-sm"></i></button>
+                        <a href="tel:${c.phone}" class="w-12 h-12 flex items-center justify-center glass-btn text-[var(--accent-green)] hover:shadow-[0_0_15px_rgba(57,255,20,0.3)]"><i class="fa-solid fa-phone-flip"></i></a>
+                        <button onclick="removeContact(${index})" class="w-12 h-12 flex items-center justify-center glass-btn text-[var(--accent-red)] hover:shadow-[0_0_15px_rgba(255,59,59,0.3)]"><i class="fa-solid fa-trash-can"></i></button>
                     </div>
                 </div>
             `).join('');

@@ -10,104 +10,92 @@
         @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap');
         
         :root {
-            --bg-color: #e2e8f0;
-            --clay-bg: #f8fafc;
-            --shadow-outer: #cbd5e1;
-            --shadow-inner: #ffffff;
-            --text-main: #1e293b;
-            --text-muted: #64748b;
-            --accent-red: #ff4d4d;
-            --accent-green: #22c55e;
-            --accent-blue: #3b82f6;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-main: #ffffff;
+            --text-muted: rgba(255, 255, 255, 0.4);
+            --accent-red: #ff3b3b;
+            --accent-blue: #00d2ff;
+            --accent-green: #39ff14;
         }
 
         body { 
             font-family: 'Nunito', sans-serif; 
-            background-color: var(--bg-color); 
+            background: #020617;
             color: var(--text-main); 
             overflow: hidden; 
         }
         
-        .clay-card {
-            background: var(--clay-bg);
-            box-shadow: 20px 20px 40px var(--shadow-outer), 
-                       -20px -20px 40px var(--shadow-inner),
-                       inset 4px 4px 10px rgba(0,0,0,0.03),
-                       inset -4px -4px 10px rgba(255,255,255,0.7);
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
             border-radius: 2.5rem;
         }
 
-        .clay-pressed {
-            background: var(--clay-bg);
-            box-shadow: inset 8px 8px 16px var(--shadow-outer), 
-                        inset -8px -8px 16px var(--shadow-inner);
-            border-radius: 1.5rem;
-            border: none;
-            outline: none;
-        }
-
-        .clay-btn {
-            background: var(--clay-bg);
-            box-shadow: 10px 10px 20px var(--shadow-outer), 
-                       -10px -10px 20px var(--shadow-inner),
-                       inset 2px 2px 5px rgba(255,255,255,0.8);
+        .glass-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
             border-radius: 1.25rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .clay-btn:active {
-            transform: scale(0.95);
-            box-shadow: inset 6px 6px 12px var(--shadow-outer), 
-                        inset -6px -6px 12px var(--shadow-inner);
-        }
-
-        .clay-icon-btn {
-            background: var(--clay-bg);
-            box-shadow: 8px 8px 16px var(--shadow-outer), 
-                       -8px -8px 16px var(--shadow-inner),
-                       inset 3px 3px 6px rgba(255,255,255,0.8);
-            border-radius: 50%;
+            transition: all 0.3s ease;
         }
 
         .ai-bubble {
-            background: var(--clay-bg);
-            box-shadow: 15px 15px 30px var(--shadow-outer), 
-                       -15px -15px 30px var(--shadow-inner),
-                       inset 4px 4px 10px rgba(255,255,255,0.8);
+            background: rgba(0, 210, 255, 0.1);
+            border: 1px solid rgba(0, 210, 255, 0.2);
+            backdrop-filter: blur(10px);
             border-radius: 2rem;
             border-bottom-left-radius: 0.5rem;
+            box-shadow: 0 5px 15px rgba(0, 210, 255, 0.1);
         }
 
         .user-bubble {
-            background: var(--clay-bg);
-            box-shadow: inset 8px 8px 16px var(--shadow-outer), 
-                        inset -8px -8px 16px var(--shadow-inner);
+            background: rgba(255, 59, 59, 0.1);
+            border: 1px solid rgba(255, 59, 59, 0.2);
+            backdrop-filter: blur(10px);
             border-radius: 2rem;
             border-bottom-right-radius: 0.5rem;
             color: var(--accent-red);
+            box-shadow: 0 5px 15px rgba(255, 59, 59, 0.1);
         }
 
-        /* Map tint for sober mode */
-        .map-tint { filter: grayscale(0.5) contrast(1.1) brightness(1.05); }
-        
+        .glass-input {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
+            color: white;
+            border-radius: 2rem;
+            outline: none;
+        }
+
+        .glow-text {
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        }
+
         /* Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--bg-color); border-radius: 4px; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 10px; }
     </style>
 </head>
-<body class="h-[100dvh] flex flex-col max-w-md mx-auto relative clay-card md:my-4 mb-10 overflow-hidden border-8 border-white/50">
+<body class="h-[100dvh] flex flex-col max-w-md mx-auto relative glass-panel md:my-4 mb-10 overflow-hidden border-white/5">
+    <div class="fixed inset-0 z-[-1] opacity-20 pointer-events-none">
+        <div class="absolute top-0 right-0 w-[300px] h-[300px] bg-blue-600 rounded-full blur-[100px]"></div>
+        <div class="absolute bottom-0 left-0 w-[300px] h-[300px] bg-red-600 rounded-full blur-[100px]"></div>
+    </div>
 
     <!-- Header -->
-    <header class="p-8 flex justify-between items-center z-20 bg-[var(--bg-color)]/80 backdrop-blur-md border-b border-white/30">
-        <div class="flex items-center gap-6">
-            <a href="index.html" class="w-14 h-14 clay-icon-btn flex items-center justify-center text-[var(--text-main)] hover:text-[var(--accent-red)] transition-all active:scale-90"><i class="fa-solid fa-arrow-left text-lg"></i></a>
-            <div class="flex items-center gap-4">
-                <div class="w-14 h-14 clay-icon-btn flex items-center justify-center">
+    <header class="p-8 flex justify-between items-center z-20 border-b border-white/5 backdrop-blur-xl">
+        <div class="flex items-center gap-8">
+            <a href="index.html" class="w-14 h-14 glass-btn flex items-center justify-center text-white/50 hover:text-[var(--accent-red)] transition-all active:scale-90"><i class="fa-solid fa-chevron-left text-lg"></i></a>
+            <div class="flex items-center gap-5">
+                <div class="w-14 h-14 glass-btn flex items-center justify-center shadow-[0_0_15px_rgba(0,210,255,0.2)]">
                     <i class="fa-solid fa-robot text-[var(--accent-blue)] text-2xl"></i>
                 </div>
                 <div>
-                    <h1 class="font-black text-xl tracking-tighter uppercase">GUARDIAN <span class="text-[var(--accent-blue)]">A.I.</span></h1>
-                    <p class="text-[9px] text-[var(--accent-green)] font-black tracking-[0.4em] uppercase mt-1">Ready to protect</p>
+                    <h1 class="font-black text-xl tracking-tighter uppercase glow-text">GUARDIAN <span class="text-[var(--accent-blue)]">CORE</span></h1>
+                    <p class="text-[9px] text-[var(--accent-green)] font-black tracking-[0.5em] uppercase mt-2">Active Monitor</p>
                 </div>
             </div>
         </div>
@@ -118,22 +106,22 @@
         
         <!-- Welcome Message -->
         <div class="flex justify-start msg-anim">
-            <div class="w-12 h-12 clay-icon-btn flex items-center justify-center text-[var(--accent-blue)] mr-5 shrink-0 pointer-events-none mt-auto mb-3">
-                <i class="fa-solid fa-robot text-sm"></i>
+            <div class="w-12 h-12 glass-btn flex items-center justify-center text-[var(--accent-blue)] mr-6 shrink-0 pointer-events-none mt-auto mb-4 border-white/5">
+                <i class="fa-solid fa-microchip text-sm"></i>
             </div>
-            <div class="ai-bubble max-w-[80%] p-6 text-sm font-black leading-relaxed tracking-tighter uppercase">
-                <p class="mb-4 font-black text-[var(--accent-blue)] text-[9px] tracking-[0.3em] uppercase">Security Core Loaded</p>
-                Hello. I am your Guardian A.I. How can I assist you with your safety today?
+            <div class="ai-bubble max-w-[80%] p-8 text-sm font-black leading-relaxed tracking-widest uppercase">
+                <p class="mb-5 font-black text-[var(--accent-blue)] text-[9px] tracking-[0.4em] uppercase opacity-50">Identity Verified</p>
+                Greetings. Guardian Core is online. How can I assist you with your safety protocols?
             </div>
         </div>
 
     </main>
 
     <!-- Input Area -->
-    <footer class="p-8 z-20 bg-[var(--bg-color)]/80 backdrop-blur-md pb-14 md:pb-10 border-t border-white/30">
-        <form id="chatForm" class="flex gap-4 relative">
-            <input type="text" id="chatInput" class="flex-1 clay-pressed rounded-full px-8 py-5 text-xs font-black tracking-widest uppercase text-[var(--text-main)] placeholder-[var(--text-muted)] focus:outline-none focus:scale-[1.01] transition-transform" placeholder="DESCRIBE SITUATION..." required autocomplete="off">
-            <button type="submit" class="absolute right-3 top-2.5 bottom-2.5 w-14 clay-btn flex items-center justify-center text-[var(--accent-red)] active:scale-90 transition-all">
+    <footer class="p-8 z-20 backdrop-blur-2xl pb-14 md:pb-10 border-t border-white/5">
+        <form id="chatForm" class="flex gap-5 relative">
+            <input type="text" id="chatInput" class="flex-1 glass-input px-8 py-6 text-xs font-black tracking-[0.2em] uppercase placeholder-white/10" placeholder="Type protocols..." required autocomplete="off">
+            <button type="submit" class="absolute right-3 top-3 bottom-3 w-14 glass-btn flex items-center justify-center text-[var(--accent-red)] active:scale-90 transition-all shadow-[0_0_15px_rgba(255,59,59,0.2)]">
                 <i class="fa-solid fa-paper-plane-top text-lg"></i>
             </button>
         </form>
@@ -183,20 +171,20 @@
             
             if(sender === 'ai') {
                 html += `
-                    <div class="w-12 h-12 clay-icon-btn flex items-center justify-center text-[var(--accent-blue)] mr-5 shrink-0 pointer-events-none mt-auto mb-3">
-                        <i class="fa-solid fa-robot text-sm"></i>
+                    <div class="w-12 h-12 glass-btn flex items-center justify-center text-[var(--accent-blue)] mr-6 shrink-0 pointer-events-none mt-auto mb-4 border-white/5">
+                        <i class="fa-solid fa-microchip text-sm"></i>
                     </div>
-                    <div class="ai-bubble max-w-[80%] p-6 text-sm font-black leading-relaxed tracking-tighter uppercase">
+                    <div class="ai-bubble max-w-[80%] p-8 text-sm font-black leading-relaxed tracking-widest uppercase">
                         ${text}
                     </div>
                 `;
             } else {
                 html += `
-                    <div class="user-bubble max-w-[80%] p-6 text-sm font-black leading-relaxed tracking-tighter uppercase">
+                    <div class="user-bubble max-w-[80%] p-8 text-sm font-black leading-relaxed tracking-widest uppercase">
                         ${text}
                     </div>
-                    <div class="w-12 h-12 clay-icon-btn flex items-center justify-center text-[var(--text-muted)] ml-5 shrink-0 pointer-events-none mt-auto mb-3">
-                        <i class="fa-solid fa-user text-sm"></i>
+                    <div class="w-12 h-12 glass-btn flex items-center justify-center text-white/30 ml-6 shrink-0 pointer-events-none mt-auto mb-4 border-white/5">
+                        <i class="fa-solid fa-fingerprint text-sm"></i>
                     </div>
                 `;
             }
@@ -212,10 +200,10 @@
             div.className = `flex justify-start msg-anim`;
             
             div.innerHTML = `
-                <div class="w-12 h-12 clay-icon-btn flex items-center justify-center text-[var(--accent-blue)] mr-5 shrink-0 pointer-events-none mt-auto mb-3">
-                    <i class="fa-solid fa-robot text-sm"></i>
+                <div class="w-12 h-12 glass-btn flex items-center justify-center text-[var(--accent-blue)] mr-6 shrink-0 pointer-events-none mt-auto mb-4 border-white/5">
+                    <i class="fa-solid fa-microchip text-sm"></i>
                 </div>
-                <div class="ai-bubble p-6 flex items-center justify-center">
+                <div class="ai-bubble p-8 flex items-center justify-center">
                     <div class="dot-flashing"></div>
                 </div>
             `;

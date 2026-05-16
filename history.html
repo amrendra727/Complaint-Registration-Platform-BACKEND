@@ -12,121 +12,105 @@
         @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap');
         
         :root {
-            --bg-color: #e2e8f0;
-            --clay-bg: #f8fafc;
-            --shadow-outer: #cbd5e1;
-            --shadow-inner: #ffffff;
-            --text-main: #1e293b;
-            --text-muted: #64748b;
-            --accent-red: #ff4d4d;
-            --accent-green: #22c55e;
-            --accent-blue: #3b82f6;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-main: #ffffff;
+            --text-muted: rgba(255, 255, 255, 0.5);
+            --accent-red: #ff3b3b;
+            --accent-green: #39ff14;
+            --accent-blue: #00d2ff;
         }
 
         body { 
             font-family: 'Nunito', sans-serif; 
-            background-color: var(--bg-color); 
+            background: linear-gradient(135deg, #020617 0%, #0f172a 100%);
             color: var(--text-main); 
             overflow-x: hidden; 
+            min-height: 100vh;
         }
         
-        .clay-card {
-            background: var(--clay-bg);
-            box-shadow: 20px 20px 40px var(--shadow-outer), 
-                       -20px -20px 40px var(--shadow-inner),
-                       inset 4px 4px 10px rgba(0,0,0,0.03),
-                       inset -4px -4px 10px rgba(255,255,255,0.7);
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
             border-radius: 2.5rem;
         }
 
-        .clay-pressed {
-            background: var(--clay-bg);
-            box-shadow: inset 8px 8px 16px var(--shadow-outer), 
-                        inset -8px -8px 16px var(--shadow-inner);
-            border-radius: 1.5rem;
-            border: none;
-            outline: none;
-        }
-
-        .clay-btn {
-            background: var(--clay-bg);
-            box-shadow: 10px 10px 20px var(--shadow-outer), 
-                       -10px -10px 20px var(--shadow-inner),
-                       inset 2px 2px 5px rgba(255,255,255,0.8);
+        .glass-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
             border-radius: 1.25rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s ease;
         }
-        .clay-btn:active {
-            transform: scale(0.95);
-            box-shadow: inset 6px 6px 12px var(--shadow-outer), 
-                        inset -6px -6px 12px var(--shadow-inner);
-        }
-
-        .clay-icon-btn {
-            background: var(--clay-bg);
-            box-shadow: 8px 8px 16px var(--shadow-outer), 
-                       -8px -8px 16px var(--shadow-inner),
-                       inset 3px 3px 6px rgba(255,255,255,0.8);
-            border-radius: 50%;
+        .glass-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
         }
 
-        /* Map tint for sober mode */
-        .map-tint { filter: grayscale(0.5) contrast(1.1) brightness(1.05); }
-        
+        .glow-text {
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
         /* Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--bg-color); border-radius: 4px; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 10px; }
     </style>
 </head>
-<body class="min-h-screen p-8 flex flex-col gap-8 max-w-6xl mx-auto w-full">
+<body class="min-h-screen p-8 flex flex-col gap-10 max-w-6xl mx-auto w-full relative">
+    <div class="fixed inset-0 z-[-1] opacity-10 pointer-events-none">
+        <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-red-600 rounded-full blur-[150px]"></div>
+        <div class="absolute bottom-0 left-0 w-[600px] h-[600px] bg-blue-600 rounded-full blur-[150px]"></div>
+    </div>
 
-    <header class="clay-card p-6 flex justify-between items-center border-4 border-white/50">
-        <div class="flex items-center gap-6">
-            <div class="w-16 h-16 clay-icon-btn flex items-center justify-center text-[var(--accent-red)] pointer-events-none">
-                <i class="fa-solid fa-clock-rotate-left text-3xl"></i>
+    <header class="glass-panel p-8 flex justify-between items-center border-white/5">
+        <div class="flex items-center gap-8">
+            <div class="w-16 h-16 glass-btn flex items-center justify-center text-[var(--accent-red)] shadow-[0_0_15px_rgba(255,59,59,0.2)]">
+                <i class="fa-solid fa-server text-3xl"></i>
             </div>
             <div>
-                <h1 class="font-black text-3xl text-[var(--text-main)] tracking-tighter uppercase">Signal <span class="text-[var(--accent-red)]">Logs</span></h1>
-                <p class="text-[10px] text-[var(--text-muted)] font-black tracking-[0.4em] uppercase mt-1">Archived Police Intelligence</p>
+                <h1 class="font-black text-4xl text-white tracking-tighter uppercase glow-text">SIGNAL <span class="text-[var(--accent-red)]">ARCHIVE</span></h1>
+                <p class="text-[10px] text-white/40 font-black tracking-[0.4em] uppercase mt-2">Deep Storage Retrieval Active</p>
             </div>
         </div>
         
-        <div class="flex gap-6">
-            <button onclick="fetchHistory()" class="clay-btn px-8 py-4 text-xs font-black tracking-widest text-[var(--accent-blue)] flex items-center gap-3 uppercase">
+        <div class="flex gap-8">
+            <button onclick="fetchHistory()" class="glass-btn px-10 py-5 text-[10px] font-black tracking-widest text-[var(--accent-blue)] flex items-center gap-4 uppercase hover:shadow-[0_0_20px_rgba(0,210,255,0.3)] transition-all">
                 <i class="fa-solid fa-sync-alt"></i> Sync
             </button>
-            <button onclick="exportToCSV()" class="clay-btn px-8 py-4 text-xs font-black tracking-widest text-[var(--text-main)] flex items-center gap-3 uppercase">
-                <i class="fa-solid fa-download"></i> Export
+            <button onclick="exportToCSV()" class="glass-btn px-10 py-5 text-[10px] font-black tracking-widest text-white flex items-center gap-4 uppercase">
+                <i class="fa-solid fa-file-export"></i> Export
             </button>
-            <a href="dashboard.html" class="clay-btn px-8 py-4 text-xs font-black tracking-widest text-[var(--accent-red)] flex items-center gap-3 uppercase transition-all">
+            <a href="dashboard.html" class="glass-btn px-10 py-5 text-[10px] font-black tracking-widest text-[var(--accent-red)] flex items-center gap-4 uppercase transition-all">
                 <i class="fa-solid fa-arrow-left"></i> Hub
             </a>
         </div>
     </header>
 
-    <div class="clay-card flex-1 flex flex-col overflow-hidden mb-8 border-8 border-white/30">
-        <div class="overflow-x-auto flex-1 clay-pressed m-8 rounded-[2rem]">
+    <div class="glass-panel flex-1 flex flex-col overflow-hidden mb-12 border-white/5">
+        <div class="overflow-x-auto flex-1 m-10 rounded-[2rem]">
             <table class="w-full text-left border-collapse whitespace-nowrap">
                 <thead>
-                    <tr class="text-[9px] uppercase tracking-[0.3em] text-[var(--text-muted)] font-black border-b border-slate-300/30">
-                        <th class="p-8">Incident ID</th>
-                        <th class="p-8">Victim / User</th>
-                        <th class="p-8">Coordinates</th>
-                        <th class="p-8">Timestamp</th>
-                        <th class="p-8">Status</th>
-                        <th class="p-8 text-right">Actions</th>
+                    <tr class="text-[10px] uppercase tracking-[0.4em] text-white/30 font-black border-b border-white/5">
+                        <th class="p-10">Beacon ID</th>
+                        <th class="p-10">Identity</th>
+                        <th class="p-10">Coordinates</th>
+                        <th class="p-10">Timestamp</th>
+                        <th class="p-10">Status</th>
+                        <th class="p-10 text-right">Actions</th>
                     </tr>
                 </thead>
-                <tbody id="historyTable" class="text-xs font-black uppercase tracking-tighter">
+                <tbody id="historyTable" class="text-xs font-black uppercase tracking-widest">
                     <!-- Dynamically populated via JS -->
                 </tbody>
             </table>
         </div>
         
-        <div class="px-12 pb-10 pt-4 flex justify-between items-center text-[9px] text-[var(--text-muted)] font-black uppercase tracking-[0.4em]">
-            <span>Total Units: <span id="totalRecords" class="text-[var(--text-main)]">0</span></span>
-            <span id="fetchStatus" class="text-[var(--accent-blue)] animate-pulse">Initializing System...</span>
+        <div class="px-12 pb-12 pt-6 flex justify-between items-center text-[10px] text-white/20 font-black uppercase tracking-[0.5em]">
+            <span>Total Signals Tracked: <span id="totalRecords" class="text-white">0</span></span>
+            <span id="fetchStatus" class="text-[var(--accent-blue)] animate-pulse">Scanning Grid...</span>
         </div>
     </div>
 
@@ -198,33 +182,33 @@
                     const displayId = alert.id ? alert.id.toString().slice(-4) : '####';
                     
                     const statusHtml = isResolved 
-                        ? `<span class="clay-pressed inline-flex items-center gap-3 px-6 py-2.5 text-[8px] font-black tracking-widest text-[var(--accent-green)]">
-                                <span class="w-2.5 h-2.5 rounded-full bg-[var(--accent-green)] shadow-[0_0_8px_rgba(34,197,94,0.5)]"></span> RESOLVED
+                        ? `<span class="glass-btn inline-flex items-center gap-3 px-6 py-3 text-[8px] font-black tracking-[0.3em] text-[var(--accent-green)] border-white/5">
+                                <span class="w-2 h-2 rounded-full bg-[var(--accent-green)] shadow-[0_0_10px_rgba(57,255,20,0.5)]"></span> SECURED
                             </span>`
-                        : `<span class="clay-pressed inline-flex items-center gap-3 px-6 py-2.5 text-[8px] font-black tracking-widest text-[var(--accent-red)]">
-                                <span class="w-2.5 h-2.5 rounded-full bg-[var(--accent-red)] animate-pulse shadow-[0_0_8px_rgba(255,77,77,0.5)]"></span> ACTIVE
+                        : `<span class="glass-btn inline-flex items-center gap-3 px-6 py-3 text-[8px] font-black tracking-[0.3em] text-[var(--accent-red)] border-white/5">
+                                <span class="w-2 h-2 rounded-full bg-[var(--accent-red)] animate-ping shadow-[0_0_10px_rgba(255,59,59,1)]"></span> BROADCASTING
                             </span>`;
 
                     return `
-                        <tr class="hover:bg-white/30 transition-colors border-b border-slate-300/10">
-                            <td class="p-8 text-[var(--text-muted)] font-black tracking-widest">GRID-${displayId}</td>
-                            <td class="p-8 text-[var(--text-main)]">
-                                <div class="flex items-center gap-5">
-                                    <div class="w-12 h-12 clay-icon-btn flex items-center justify-center text-[9px] text-[var(--text-muted)] font-black uppercase tracking-tighter">${(alert.name || 'U').substring(0, 2)}</div>
-                                    <span class="tracking-tighter uppercase font-black">${alert.name || 'Unknown User'}</span>
+                        <tr class="hover:bg-white/5 transition-all border-b border-white/5 group">
+                            <td class="p-10 text-white/40 font-black tracking-[0.3em]">#LOG-${displayId}</td>
+                            <td class="p-10 text-white">
+                                <div class="flex items-center gap-6">
+                                    <div class="w-14 h-14 glass-btn flex items-center justify-center text-[10px] text-white/30 font-black uppercase tracking-tighter group-hover:shadow-[0_0_15px_rgba(255,255,255,0.1)] transition-all">${(alert.name || 'U').substring(0, 2)}</div>
+                                    <span class="tracking-widest uppercase font-black">${alert.name || 'Unknown Subject'}</span>
                                 </div>
                             </td>
-                            <td class="p-8 text-[8px] text-[var(--text-main)] tracking-[0.2em] font-black">
-                                <span class="text-[var(--text-muted)]">LAT:</span> ${parseFloat(alert.latitude || 0).toFixed(4)} <br>
-                                <span class="text-[var(--text-muted)] mt-1 block"><span class="text-[var(--text-muted)]">LNG:</span> ${parseFloat(alert.longitude || 0).toFixed(4)}</span>
+                            <td class="p-10 text-[9px] text-white/80 tracking-[0.3em] font-black">
+                                <span class="text-white/20">LAT:</span> ${parseFloat(alert.latitude || 0).toFixed(4)} <br>
+                                <span class="text-white/20 mt-3 block">LNG:</span> ${parseFloat(alert.longitude || 0).toFixed(4)}
                             </td>
-                            <td class="p-8 text-[var(--text-main)]">
-                                <p class="tracking-widest">${dateObj.toLocaleDateString()}</p>
-                                <p class="text-[8px] text-[var(--text-muted)] tracking-[0.3em] mt-2">${dateObj.toLocaleTimeString()}</p>
+                            <td class="p-10 text-white/80">
+                                <p class="tracking-[0.2em]">${dateObj.toLocaleDateString()}</p>
+                                <p class="text-[9px] text-white/30 tracking-[0.4em] mt-3 uppercase">${dateObj.toLocaleTimeString()}</p>
                             </td>
-                            <td class="p-8">${statusHtml}</td>
-                            <td class="p-8 text-right">
-                                <button onclick="alert('Message: ${alert.message || 'No details provided'}')" class="w-12 h-12 clay-icon-btn inline-flex items-center justify-center text-[var(--accent-blue)] hover:scale-110 transition-transform"><i class="fa-solid fa-file-invoice text-lg"></i></button>
+                            <td class="p-10">${statusHtml}</td>
+                            <td class="p-10 text-right">
+                                <button onclick="alert('System Decryption: ${alert.message || 'No data recorded'}')" class="w-14 h-14 glass-btn inline-flex items-center justify-center text-[var(--accent-blue)] hover:shadow-[0_0_20px_rgba(0,210,255,0.4)] transition-all"><i class="fa-solid fa-shield-halved text-xl"></i></button>
                             </td>
                         </tr>
                     `;
