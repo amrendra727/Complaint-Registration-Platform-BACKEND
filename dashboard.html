@@ -109,18 +109,17 @@
                 flex-direction: row !important;
                 align-items: center !important;
                 justify-content: center !important;
-                gap: 20px !important; 
-                space-y: 0 !important; 
+                gap: 15px !important; 
                 margin: 0 !important; 
             }
             .map-overlay-info .bg-[var(--md-sys-color-surface-variant)] { 
                 background: transparent !important;
                 padding: 0 !important; 
                 margin: 0 !important; 
-                flex: none !important;
                 display: flex !important;
+                flex-direction: row !important;
                 gap: 5px !important;
-                align-items: center !important;
+                align-items: baseline !important;
             }
             .map-overlay-info .text-[7px] { font-size: 9px !important; opacity: 0.6; }
             .map-overlay-info .text-xs { font-size: 11px !important; margin: 0 !important; }
@@ -195,11 +194,11 @@
                     <span class="text-[var(--md-sys-color-on-surface)] text-[10px] md:text-xs font-bold tracking-widest uppercase">Grid Lock</span>
                 </div>
                 <div class="space-y-3 md:space-y-4 mb-4 md:mb-6">
-                    <div class="bg-[var(--md-sys-color-surface-variant)] p-3 md:p-4 rounded-xl flex flex-col md:block">
+                    <div class="bg-[var(--md-sys-color-surface-variant)] p-3 md:p-4 rounded-xl flex items-baseline gap-2 md:block">
                         <span class="text-[7px] md:text-[8px] font-bold text-[var(--md-sys-color-on-surface-variant)] uppercase">Lat</span>
                         <span id="overlayLat" class="block text-xs md:text-sm font-bold text-[var(--md-sys-color-on-surface)] mt-1">---</span>
                     </div>
-                    <div class="bg-[var(--md-sys-color-surface-variant)] p-3 md:p-4 rounded-xl flex flex-col md:block">
+                    <div class="bg-[var(--md-sys-color-surface-variant)] p-3 md:p-4 rounded-xl flex items-baseline gap-2 md:block">
                         <span class="text-[7px] md:text-[8px] font-bold text-[var(--md-sys-color-on-surface-variant)] uppercase">Lng</span>
                         <span id="overlayLng" class="block text-xs md:text-sm font-bold text-[var(--md-sys-color-on-surface)] mt-1">---</span>
                     </div>
